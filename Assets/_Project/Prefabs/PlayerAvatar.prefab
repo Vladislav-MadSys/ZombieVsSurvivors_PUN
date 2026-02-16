@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7559521430205134879}
   - component: {fileID: 1460321856583286287}
+  - component: {fileID: 1512784174304474769}
   m_Layer: 0
   m_Name: PlayerAvatar
   m_TagString: Untagged
@@ -50,8 +51,21 @@ MonoBehaviour:
   ObjectInterest: 0
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 1512784174304474769}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &1512784174304474769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597395629679072033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b64902862b969438b070bc01545e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4230577023009681279
 GameObject:
   m_ObjectHideFlags: 0
