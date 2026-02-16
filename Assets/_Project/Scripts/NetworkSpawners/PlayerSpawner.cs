@@ -22,20 +22,27 @@ namespace _Project.Scripts.NetworkSpawners
 
         public void PlayerJoined(PlayerRef player)
         {
+            
             if (player == Runner.LocalPlayer)
             {
                 _player = player;
+                if (!Runner.IsSceneAuthority)
+                {
+                    SpawnPlayer();
+                }
             }
         }
 
         public void SceneLoadDone(in SceneLoadDoneArgs sceneInfo)
         {
-            if (Runner.LocalPlayer == _player)
-            {
-                NetworkObject player = Runner.Spawn(PlayerPrefab, new Vector3(0, 1, 0), Quaternion.identity, _player);
-                PlayerInstance playerInstance = player.GetComponent<PlayerInstance>();
-                playerInstance.Initialize(_inputHandler, _player);
-            }
+            SpawnPlayer();
+        }
+
+        public void SpawnPlayer()
+        {
+            NetworkObject player = Runner.Spawn(PlayerPrefab, new Vector3(0, 1, 0), Quaternion.identity, _player);
+            PlayerInstance playerInstance = player.GetComponent<PlayerInstance>();
+            playerInstance.Initialize(_inputHandler, _player);
         }
     }
 }
