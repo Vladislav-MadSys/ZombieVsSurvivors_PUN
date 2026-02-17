@@ -1,10 +1,8 @@
-using System;
 using _Project.Scripts.Low.Input;
 using Fusion;
 using UnityEngine;
 
-
-namespace _Project.Scripts.PlayerAvatar
+namespace _Project.Scripts.GameEntities.PlayerAvatar
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class AvatarMovementController : NetworkBehaviour

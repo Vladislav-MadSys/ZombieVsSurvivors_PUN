@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
-using Zenject;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Utils
 {
     public class BasicNetworkRunnerCallbacks : MonoBehaviour, INetworkRunnerCallbacks
     {

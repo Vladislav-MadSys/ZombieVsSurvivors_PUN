@@ -1,6 +1,6 @@
+using _Project.Scripts.GameEntities.PlayerAvatar;
 using _Project.Scripts.Low.Input;
 using _Project.Scripts.NetworkSpawners;
-using _Project.Scripts.PlayerAvatar;
 using Fusion;
 using UnityEngine;
 using Zenject;
