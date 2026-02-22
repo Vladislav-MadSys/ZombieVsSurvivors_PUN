@@ -26,12 +26,9 @@ namespace _Project.Scripts.Session
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-        public void RPC_PlayerLeave(PlayerRef playerRef)
+        private void RPC_PlayerLeave(PlayerRef playerRef)
         {
-            if (PlayerInstances.ContainsKey(playerRef))
-            {
-                PlayerInstances.Remove(playerRef);
-            }
+            PlayerInstances.Remove(playerRef);
         }
     }
 }

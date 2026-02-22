@@ -12,15 +12,16 @@ namespace _Project.Scripts
     {
         [SerializeField] private GameObject playerAvatarPrefab;
         
-        private PlayerRef _owner;
         private InputHandler _inputHandler;
         private RoomSessionData _roomSessionData;
+
+        public PlayerRef Owner { get; private set; }
 
         [Networked] public NetworkObject PlayerAvatar { get; private set; }
 
         public void Initialize(InputHandler inputHandler, PlayerRef owner)
         {
-            _owner = owner;
+            Owner = owner;
             _inputHandler = inputHandler;
         }
 
@@ -29,8 +30,8 @@ namespace _Project.Scripts
             if (Object.HasInputAuthority)
             {
                 _roomSessionData = GameSceneContainer.Instance.RoomSessionData;
-                PlayerAvatar = Runner.Spawn(playerAvatarPrefab, inputAuthority: _owner);
-                _roomSessionData.RPC_PlayerJoin(_owner, this);
+                PlayerAvatar = Runner.Spawn(playerAvatarPrefab, inputAuthority: Owner);
+                _roomSessionData.RPC_PlayerJoin(Owner, this);
                 AvatarMovementController avatarMovementController = PlayerAvatar.GetComponent<AvatarMovementController>();
                 avatarMovementController.Initialize(_inputHandler);
             }
