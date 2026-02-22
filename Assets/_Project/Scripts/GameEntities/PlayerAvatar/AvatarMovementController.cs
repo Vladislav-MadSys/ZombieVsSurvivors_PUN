@@ -25,7 +25,6 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
         public override void FixedUpdateNetwork()
         {
             _rb.MovePosition(_rb.position + (_inputHandler.MoveInput * Speed * Time.fixedDeltaTime));
-            Debug.Log(_inputHandler.MoveInput);
         }
     }
 }
