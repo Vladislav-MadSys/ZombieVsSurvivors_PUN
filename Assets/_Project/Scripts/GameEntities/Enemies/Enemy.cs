@@ -1,68 +1,69 @@
-using System;
 using _Project.Scripts.Session;
 using Fusion;
 using UnityEngine;
 
-
-public class Enemy : NetworkBehaviour
+namespace _Project.Scripts.GameEntities.Enemies
 {
-
-    private RoomSessionData _roomData;
-    
-    [Networked]
-    public PlayerRef Target { get; set; }
-    
-    public void Initialize(RoomSessionData roomData)
+    public class Enemy : NetworkBehaviour
     {
-        _roomData = roomData;
-        
-        UpdateTarget();
-    }
 
-    public void UpdateTarget()
-    {
-        if (_roomData == null)
+        private RoomSessionData _roomData;
+    
+        [Networked]
+        public PlayerRef Target { get; set; }
+    
+        public void Initialize(RoomSessionData roomData)
         {
-            Debug.LogError("_roomData == null");
-            return;
+            _roomData = roomData;
+        
+            UpdateTarget();
         }
-        
-        PlayerRef closestPlayer = default;
 
-        foreach (var playerInstance in _roomData.PlayerInstances)
+        public void UpdateTarget()
         {
-            if (closestPlayer == default(PlayerRef) && _roomData.PlayerInstances.Count > 0)
+            if (_roomData == null)
             {
-                closestPlayer = playerInstance.Value.Owner;
+                Debug.LogError("_roomData == null");
+                return;
             }
-            else if(_roomData.PlayerInstances[closestPlayer].PlayerAvatar != null)
+        
+            PlayerRef closestPlayer = default;
+
+            foreach (var playerInstance in _roomData.PlayerInstances)
             {
-                Vector3 myPosition = transform.position;
-                Vector3 avatar1 = _roomData.PlayerInstances[closestPlayer].PlayerAvatar.transform.position;
-                Vector3 avatar2 = playerInstance.Value.PlayerAvatar.transform.position;
-
-                float distance1 = (myPosition - avatar1).sqrMagnitude;
-                float distance2 = (myPosition - avatar2).sqrMagnitude;
-
-                if (distance1 > distance2)
+                if (closestPlayer == default(PlayerRef) && _roomData.PlayerInstances.Count > 0)
                 {
                     closestPlayer = playerInstance.Value.Owner;
                 }
-            }
-        }
-        
-        Target = closestPlayer;
-    }
+                else if(_roomData.PlayerInstances[closestPlayer].PlayerAvatar != null)
+                {
+                    Vector3 myPosition = transform.position;
+                    Vector3 avatar1 = _roomData.PlayerInstances[closestPlayer].PlayerAvatar.transform.position;
+                    Vector3 avatar2 = playerInstance.Value.PlayerAvatar.transform.position;
 
-    public Transform GetTarget()
-    {
-        if (Target != default)
-        {
-            return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
+                    float distance1 = (myPosition - avatar1).sqrMagnitude;
+                    float distance2 = (myPosition - avatar2).sqrMagnitude;
+
+                    if (distance1 > distance2)
+                    {
+                        closestPlayer = playerInstance.Value.Owner;
+                    }
+                }
+            }
+        
+            Target = closestPlayer;
         }
-        else
+
+        public Transform GetTarget()
         {
-            return null;
+            if (Target != default)
+            {
+                return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

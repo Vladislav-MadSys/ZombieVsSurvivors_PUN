@@ -24,7 +24,14 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
 
         public override void FixedUpdateNetwork()
         {
-            _rb.MovePosition(_rb.position + (_inputHandler.MoveInput * Speed * Time.fixedDeltaTime));
+            if (_rb != null)
+            {
+                _rb.MovePosition(_rb.position + (_inputHandler.MoveInput * Speed * Time.fixedDeltaTime));
+            }
+            else
+            {
+                Debug.LogError("No Rigidbody!");
+            }
         }
     }
 }

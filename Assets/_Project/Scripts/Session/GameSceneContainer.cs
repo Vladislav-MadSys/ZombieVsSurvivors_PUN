@@ -1,16 +1,17 @@
-using System;
-using _Project.Scripts.Session;
 using Fusion;
 using UnityEngine;
 
-public class GameSceneContainer : NetworkBehaviour
+namespace _Project.Scripts.Session
 {
-    public static GameSceneContainer Instance { get; private set; }
-
-    [field: SerializeField] public RoomSessionData RoomSessionData { get; private set; }
-
-    private void Awake()
+    public class GameSceneContainer : NetworkBehaviour
     {
-        GameSceneContainer.Instance = this;
+        public static GameSceneContainer Instance { get; private set; }
+
+        [field: SerializeField] public RoomSessionData RoomSessionData { get; private set; }
+
+        private void Awake()
+        {
+            GameSceneContainer.Instance = this;
+        }
     }
 }

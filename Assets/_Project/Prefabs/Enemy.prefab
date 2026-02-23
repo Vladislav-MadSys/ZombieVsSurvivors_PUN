@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6847110607720793169}
   - component: {fileID: 428584102322154305}
   - component: {fileID: 1596647166383887355}
+  - component: {fileID: 3206842352821561642}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -63,11 +64,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2882530531
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 131073
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 8335510191624038721}
   - {fileID: 6847110607720793169}
+  - {fileID: 3206842352821561642}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &6847110607720793169
 MonoBehaviour:
@@ -81,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77c4d5c51656fb478cac1fa9c4feee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 2
 --- !u!61 &428584102322154305
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -154,7 +156,24 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &3206842352821561642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9160936951202119895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 1
 --- !u!1 &9189482476301792653
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +249,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 613658156, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
