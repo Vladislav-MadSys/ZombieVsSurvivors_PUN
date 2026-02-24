@@ -14,7 +14,6 @@ namespace _Project.Scripts.Session
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RPC_PlayerJoin(PlayerRef playerRef, PlayerInstance playerInstance)
         {
-            Debug.Log(playerRef + " / " + playerInstance);
             if (!PlayerInstances.ContainsKey(playerRef) && playerRef != PlayerRef.None && playerInstance != null)
             {
                 PlayerInstances.Add(playerRef, playerInstance);

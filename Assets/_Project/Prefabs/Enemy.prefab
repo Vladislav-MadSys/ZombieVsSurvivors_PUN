@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 428584102322154305}
   - component: {fileID: 1596647166383887355}
   - component: {fileID: 3206842352821561642}
+  - component: {fileID: 7373787970595423983}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -70,6 +71,7 @@ MonoBehaviour:
   - {fileID: 8335510191624038721}
   - {fileID: 6847110607720793169}
   - {fileID: 3206842352821561642}
+  - {fileID: 7373787970595423983}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &6847110607720793169
 MonoBehaviour:
@@ -174,6 +176,20 @@ MonoBehaviour:
   SyncParent: 0
   _autoAOIOverride: 1
   DisableSharedModeInterpolation: 1
+--- !u!114 &7373787970595423983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9160936951202119895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb6f428c27397c4abaae78ee4391539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHp: 100
+  _CurrentHp: 0
 --- !u!1 &9189482476301792653
 GameObject:
   m_ObjectHideFlags: 0

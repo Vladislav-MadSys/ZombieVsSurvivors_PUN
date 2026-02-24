@@ -29,7 +29,6 @@ namespace _Project.Scripts.GameEntities.Enemies
         
             PlayerRef closestPlayer = default;
 
-            Debug.Log(_roomData.PlayerInstances.Count);
             foreach (var keyValuePair in _roomData.PlayerInstances)
             {
                 if (closestPlayer == PlayerRef.None && _roomData.PlayerInstances.Count > 0)
