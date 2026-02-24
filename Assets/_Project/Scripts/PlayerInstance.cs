@@ -1,10 +1,10 @@
 using _Project.Scripts.GameEntities.PlayerAvatar;
+using _Project.Scripts.Installers;
 using _Project.Scripts.Low.Input;
-using _Project.Scripts.NetworkSpawners;
 using _Project.Scripts.Session;
 using Fusion;
 using UnityEngine;
-using Zenject;
+using Cysharp.Threading.Tasks;
 
 namespace _Project.Scripts
 {
@@ -15,26 +15,42 @@ namespace _Project.Scripts
         private InputHandler _inputHandler;
         private RoomSessionData _roomSessionData;
 
-        public PlayerRef Owner { get; private set; }
+        [Networked] public PlayerRef Owner { get; private set; }
 
         [Networked] public NetworkObject PlayerAvatar { get; private set; }
 
-        public void Initialize(InputHandler inputHandler, PlayerRef owner)
+        public void Initialize(PlayerRef owner)
         {
             Owner = owner;
-            _inputHandler = inputHandler;
+            RegisterWithRoom().Forget();
+            /*
+            _roomSessionData = GameSceneContainer.Instance.RoomSessionData;
+            _roomSessionData.RPC_PlayerJoin(Owner, this);*/
         }
 
-        private void Start() 
+        public async override void Spawned()
         {
+            await UniTask.WaitUntil(() => Owner != PlayerRef.None);
+            
             if (Object.HasInputAuthority)
             {
-                _roomSessionData = GameSceneContainer.Instance.RoomSessionData;
+                _inputHandler = ProjectContextInstaller.DiContainer.Resolve<InputHandler>();
                 PlayerAvatar = Runner.Spawn(playerAvatarPrefab, inputAuthority: Owner);
-                _roomSessionData.RPC_PlayerJoin(Owner, this);
                 AvatarMovementController avatarMovementController = PlayerAvatar.GetComponent<AvatarMovementController>();
                 avatarMovementController.Initialize(_inputHandler);
+                
             }
+        }
+        
+        private async UniTaskVoid RegisterWithRoom()
+        {
+            await UniTask.WaitUntil(() => 
+                GameSceneContainer.Instance != null &&
+                GameSceneContainer.Instance.RoomSessionData != null
+            );
+
+            var roomData = GameSceneContainer.Instance.RoomSessionData;
+            roomData.RPC_PlayerJoin(Owner, this);
         }
     }
 }

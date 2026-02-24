@@ -14,16 +14,10 @@ namespace _Project.Scripts.NetworkSpawners
         [SerializeField] private GameObject PlayerPrefab;
 
         private PlayerRef _player;
-        private InputHandler _inputHandler;
 
-        private void Start()
-        {
-            _inputHandler = ProjectContextInstaller.DiContainer.Resolve<InputHandler>();
-        }
 
         public void PlayerJoined(PlayerRef player)
         {
-            
             if (player == Runner.LocalPlayer)
             {
                 _player = player;
@@ -36,14 +30,18 @@ namespace _Project.Scripts.NetworkSpawners
 
         public void SceneLoadDone(in SceneLoadDoneArgs sceneInfo)
         {
+            if(_player == PlayerRef.None) return;
+            
             SpawnPlayer();
         }
 
         public void SpawnPlayer()
         {
+            if(_player == PlayerRef.None) return;
+            
             NetworkObject player = Runner.Spawn(PlayerPrefab, new Vector3(0, 1, 0), Quaternion.identity, _player);
             PlayerInstance playerInstance = player.GetComponent<PlayerInstance>();
-            playerInstance.Initialize(_inputHandler, _player);
+            playerInstance.Initialize(_player);
         }
     }
 }

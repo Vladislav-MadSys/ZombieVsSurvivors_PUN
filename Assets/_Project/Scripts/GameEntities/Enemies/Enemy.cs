@@ -29,24 +29,28 @@ namespace _Project.Scripts.GameEntities.Enemies
         
             PlayerRef closestPlayer = default;
 
-            foreach (var playerInstance in _roomData.PlayerInstances)
+            Debug.Log(_roomData.PlayerInstances.Count);
+            foreach (var keyValuePair in _roomData.PlayerInstances)
             {
-                if (closestPlayer == default(PlayerRef) && _roomData.PlayerInstances.Count > 0)
+                if (closestPlayer == PlayerRef.None && _roomData.PlayerInstances.Count > 0)
                 {
-                    closestPlayer = playerInstance.Value.Owner;
+                    if (keyValuePair.Value.PlayerAvatar != null)
+                    {
+                        closestPlayer = keyValuePair.Value.Owner;
+                    }
                 }
                 else if(_roomData.PlayerInstances[closestPlayer].PlayerAvatar != null)
                 {
                     Vector3 myPosition = transform.position;
                     Vector3 avatar1 = _roomData.PlayerInstances[closestPlayer].PlayerAvatar.transform.position;
-                    Vector3 avatar2 = playerInstance.Value.PlayerAvatar.transform.position;
+                    Vector3 avatar2 = keyValuePair.Value.PlayerAvatar.transform.position;
 
                     float distance1 = (myPosition - avatar1).sqrMagnitude;
                     float distance2 = (myPosition - avatar2).sqrMagnitude;
 
                     if (distance1 > distance2)
                     {
-                        closestPlayer = playerInstance.Value.Owner;
+                        closestPlayer = keyValuePair.Value.Owner;
                     }
                 }
             }
@@ -56,12 +60,13 @@ namespace _Project.Scripts.GameEntities.Enemies
 
         public Transform GetTarget()
         {
-            if (Target != default)
+            if (Target != PlayerRef.None && _roomData.PlayerInstances.Count > 0 && _roomData.PlayerInstances.ContainsKey(Target))
             {
                 return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
             }
             else
             {
+                UpdateTarget();
                 return null;
             }
         }

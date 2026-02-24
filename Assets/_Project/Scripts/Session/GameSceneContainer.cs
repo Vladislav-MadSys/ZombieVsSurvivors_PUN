@@ -9,7 +9,7 @@ namespace _Project.Scripts.Session
 
         [field: SerializeField] public RoomSessionData RoomSessionData { get; private set; }
 
-        private void Awake()
+        public override void Spawned()
         {
             GameSceneContainer.Instance = this;
         }

@@ -1,4 +1,5 @@
 using _Project.Scripts.Session;
+using Cysharp.Threading.Tasks;
 using Fusion;
 using UnityEngine;
 
@@ -15,9 +16,12 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
 
         [Networked] private float Timer { get; set; } = 0;
 
-        public override void Spawned()
+        public async override void Spawned()
         {
             base.Spawned();
+            
+            await UniTask.WaitUntil(() => GameSceneContainer.Instance != null);
+            
             _roomSessionData = GameSceneContainer.Instance.RoomSessionData;
         }
 

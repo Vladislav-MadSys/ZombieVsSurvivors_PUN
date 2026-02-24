@@ -11,10 +11,11 @@ namespace _Project.Scripts.Session
         public NetworkDictionary<PlayerRef, PlayerInstance> PlayerInstances { get; } = new NetworkDictionary<PlayerRef, PlayerInstance>();
 
 
-        [Rpc(RpcSources.All, RpcTargets.All)]
+        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RPC_PlayerJoin(PlayerRef playerRef, PlayerInstance playerInstance)
         {
-            if (!PlayerInstances.ContainsKey(playerRef))
+            Debug.Log(playerRef + " / " + playerInstance);
+            if (!PlayerInstances.ContainsKey(playerRef) && playerRef != PlayerRef.None && playerInstance != null)
             {
                 PlayerInstances.Add(playerRef, playerInstance);
             }
