@@ -12,6 +12,7 @@ public class EnemyHP : NetworkBehaviour
 
     public override void Spawned()
     {
+        base.Spawned();
         CurrentHp = MaxHp;
     }
 
@@ -27,6 +28,7 @@ public class EnemyHP : NetworkBehaviour
 
     public void Kill()
     {
-        Runner.Despawn(GetComponent<NetworkObject>());
+        if(TryGetComponent(out NetworkObject networkObject))
+        Runner.Despawn(networkObject);
     }
 }
