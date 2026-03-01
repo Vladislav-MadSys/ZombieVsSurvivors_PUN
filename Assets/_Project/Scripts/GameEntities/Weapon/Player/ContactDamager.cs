@@ -1,14 +1,18 @@
+using _Project.Scripts.GameEntities.Enemies;
 using UnityEngine;
 
-public class ContactDamager : MonoBehaviour
+namespace _Project.Scripts.GameEntities.Weapon.Player
 {
-    [SerializeField] private float Damage = 5;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class ContactDamager : MonoBehaviour
     {
-        if (other.TryGetComponent(out EnemyHP enemyHp))
+        [SerializeField] private float Damage = 5;
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            enemyHp.GetDamage(Damage);
+            if (other.TryGetComponent(out EnemyHP enemyHp))
+            {
+                enemyHp.GetDamage(Damage);
+            }
         }
     }
 }

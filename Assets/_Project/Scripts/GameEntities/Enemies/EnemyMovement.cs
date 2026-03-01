@@ -37,7 +37,6 @@ namespace _Project.Scripts.GameEntities.Enemies
             if (_target != null)
             {
                 _rb.MovePosition(Vector3.MoveTowards(transform.position, _target.position, Speed * Time.fixedDeltaTime));
-                Debug.Log("Move To Player!");
             }
             else
             {
