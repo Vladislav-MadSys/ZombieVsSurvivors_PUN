@@ -18,8 +18,7 @@ namespace _Project.Scripts.GameEntities.Weapon.Player
         public override void Spawned()
         {
             _transform = transform;
-        
-            IncreaseBlades(2);
+            UpdateBlades();
         }
 
         public void Update()

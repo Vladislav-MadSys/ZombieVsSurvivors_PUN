@@ -12,13 +12,6 @@ namespace _Project.Scripts
 {
     public class NetworkGameStarter : BasicNetworkRunnerCallbacks
     {
-        [Inject]
-        private void Inject(NetworkRunner runner)
-        {
-            _runner = runner;
-        }
-
-
         public override void OnConnectedToServer(NetworkRunner runner)
         {
             if (runner.IsSceneAuthority)
@@ -29,10 +22,7 @@ namespace _Project.Scripts
 
         public override void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
         {
-            if (runner.IsSceneAuthority)
-            {
-                runner.LoadScene("MainMenu");
-            }
+            runner.LoadScene("MainMenu");
         }
     }
 }
