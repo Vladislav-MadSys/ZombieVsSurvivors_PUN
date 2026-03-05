@@ -112,6 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7559521430205134879}
   - component: {fileID: 1460321856583286287}
+  - component: {fileID: 9062896114933609129}
   - component: {fileID: 1512784174304474769}
   - component: {fileID: 8525048657178503935}
   - component: {fileID: 2683283499363501338}
@@ -164,11 +165,26 @@ MonoBehaviour:
   - {fileID: 3951797335996770867}
   - {fileID: 6007025227791505543}
   NetworkedBehaviours:
+  - {fileID: 9062896114933609129}
   - {fileID: 1512784174304474769}
   - {fileID: 2683283499363501338}
   - {fileID: 98976009930595730}
   - {fileID: 4527707106594229324}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &9062896114933609129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597395629679072033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6d84cc70d6c5848a52a45da9965fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvatarHP: {fileID: 4527707106594229324}
+  AvatarMovementController: {fileID: 1512784174304474769}
 --- !u!114 &1512784174304474769
 MonoBehaviour:
   m_ObjectHideFlags: 0

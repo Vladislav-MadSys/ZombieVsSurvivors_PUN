@@ -36,9 +36,7 @@ namespace _Project.Scripts
             {
                 _inputHandler = ProjectContextInstaller.DiContainer.Resolve<InputHandler>();
                 PlayerAvatar = Runner.Spawn(playerAvatarPrefab, inputAuthority: Owner);
-                AvatarMovementController avatarMovementController = PlayerAvatar.GetComponent<AvatarMovementController>();
-                avatarMovementController.Initialize(_inputHandler);
-                
+                PlayerAvatar.GetComponent<PlayerAvatar>().Initialize(this, _inputHandler);
             }
         }
         

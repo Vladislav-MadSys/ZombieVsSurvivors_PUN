@@ -33,7 +33,6 @@ namespace _Project.Scripts.GameEntities
 
         public virtual void Kill()
         {
-            Debug.Log("Killed");
             if(TryGetComponent(out NetworkObject networkObject))
                 Runner.Despawn(networkObject);
         }
