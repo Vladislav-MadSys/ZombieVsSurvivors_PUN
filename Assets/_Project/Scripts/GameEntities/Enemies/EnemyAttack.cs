@@ -2,74 +2,84 @@ using _Project.Scripts.GameEntities.PlayerAvatar;
 using Fusion;
 using UnityEngine;
 
-public class EnemyAttack : NetworkBehaviour
+namespace _Project.Scripts.GameEntities.Enemies
 {
-    [SerializeField] private float Damage = 1;
-    [SerializeField] private float AttackRadius = 2;
-    [SerializeField] private float AttackInterval = 1;
-
-    [Networked] private float _timer { get; set; }
-
-    public override void FixedUpdateNetwork()
+    public class EnemyAttack : NetworkBehaviour
     {
-        if (_timer > AttackInterval)
+        [SerializeField] private float Damage = 1;
+        [SerializeField] private float AttackRadius = 2;
+        [SerializeField] private float AttackInterval = 1;
+
+        [Networked] private float _timer { get; set; }
+
+        public override void FixedUpdateNetwork()
         {
-            AvatarHP target = FindTarget();
+            if (_timer > AttackInterval)
+            {
+                PlayerAvatarHP target = FindTarget();
+                if (target != null)
+                {
+                    Attack(target);
+                    _timer = 0;
+                }
+            }
+            else
+            {
+                _timer += Time.fixedDeltaTime;
+            }
+        }
+
+        public void Attack(PlayerAvatarHP target)
+        {
             if (target != null)
             {
-                Attack(target);
-                _timer = 0;
+                target.RPC_GetDamage(Damage);
+                Debug.Log("Give damage to: " + target.name);
+            }
+            else
+            {
+                Debug.Log("Target killed");
             }
         }
-        else
-        {
-            _timer += Time.fixedDeltaTime;
-        }
-    }
-
-    public void Attack(AvatarHP target)
-    {
-        target.GetDamage(Damage);
-        Debug.Log("Give damage to: " + target.name);
-    }
     
-    private AvatarHP FindTarget()
-    {
-        Collider2D[] colliders = new Collider2D[100];
-        Physics2D.OverlapCircleNonAlloc(transform.position, AttackRadius, colliders);
+        private PlayerAvatarHP FindTarget()
+        {
+            Collider2D[] colliders = new Collider2D[100];
+            Physics2D.OverlapCircleNonAlloc(transform.position, AttackRadius, colliders);
         
-        AvatarHP[] playerHps = new AvatarHP[colliders.Length];
-        for(int i = 0; i < colliders.Length; i++)
-        {
-            if (colliders[i] != null && colliders[i].TryGetComponent(out AvatarHP playerHp))
+            PlayerAvatarHP[] playerHps = new PlayerAvatarHP[colliders.Length];
+            for(int i = 0; i < colliders.Length; i++)
             {
-                playerHps[i] = playerHp;
-            }
-        }
-
-        Transform target = null;
-        if (playerHps.Length > 0)
-        {
-            foreach (var enemyHp in playerHps)
-            {
-                if (target == null && enemyHp != null)
+                if (colliders[i] != null && colliders[i].TryGetComponent(out PlayerAvatarHP playerHp))
                 {
-                    target = enemyHp.transform;
+                    playerHps[i] = playerHp;
                 }
-                else if(enemyHp != null)
-                {
-                    Transform target2 = enemyHp.transform;
-                    float distance1 = (transform.position - new Vector3(target.position.x, target.position.y, 0)).magnitude;
-                    float distance2 = (transform.position - target2.position).magnitude;
+            }
 
-                    if (distance1 > distance2)
+            Transform target = null;
+            if (playerHps.Length > 0)
+            {
+                foreach (var enemyHp in playerHps)
+                {
+                    if (target == null && enemyHp != null)
                     {
-                        target = target2;
+                        target = enemyHp.transform;
+                    }
+                    else if(enemyHp != null)
+                    {
+                        Transform target2 = enemyHp.transform;
+                        float distance1 = (transform.position - new Vector3(target.position.x, target.position.y, 0)).magnitude;
+                        float distance2 = (transform.position - target2.position).magnitude;
+
+                        if (distance1 > distance2)
+                        {
+                            target = target2;
+                        }
                     }
                 }
             }
-        }
 
-        return target != null ? target.GetComponent<AvatarHP>() : null;
+            return target != null ? target.GetComponent<PlayerAvatarHP>() : null;
+        }
     }
 }

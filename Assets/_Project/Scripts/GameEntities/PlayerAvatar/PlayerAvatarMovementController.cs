@@ -5,7 +5,7 @@ using UnityEngine;
 namespace _Project.Scripts.GameEntities.PlayerAvatar
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class AvatarMovementController : NetworkBehaviour
+    public class PlayerAvatarMovementController : NetworkBehaviour
     {
         [SerializeField] private float Speed;
         

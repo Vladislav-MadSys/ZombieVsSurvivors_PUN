@@ -14,7 +14,7 @@ namespace _Project.Scripts.Utils
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
         public void OnInput(NetworkRunner runner, NetworkInput input) { }
         public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
-        public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
+        public virtual void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
         public virtual void OnConnectedToServer(NetworkRunner runner) { }
         public virtual void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
         public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }

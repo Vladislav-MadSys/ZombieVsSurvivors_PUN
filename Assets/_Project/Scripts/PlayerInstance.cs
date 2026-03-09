@@ -23,9 +23,6 @@ namespace _Project.Scripts
         {
             Owner = owner;
             RegisterWithRoom().Forget();
-            /*
-            _roomSessionData = GameSceneContainer.Instance.RoomSessionData;
-            _roomSessionData.RPC_PlayerJoin(Owner, this);*/
         }
 
         public async override void Spawned()
@@ -37,6 +34,23 @@ namespace _Project.Scripts
                 _inputHandler = ProjectContextInstaller.DiContainer.Resolve<InputHandler>();
                 PlayerAvatar = Runner.Spawn(playerAvatarPrefab, inputAuthority: Owner);
                 PlayerAvatar.GetComponent<PlayerAvatar>().Initialize(this, _inputHandler);
+            }
+        }
+
+        public void AvatarKilled()
+        {
+            if (Runner.IsSharedModeMasterClient)
+            {
+                RPC_Disconnect(Owner);
+            }
+        }
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Disconnect(PlayerRef playerRef)
+        {
+            if (Runner.LocalPlayer == playerRef)
+            {
+                Runner.Shutdown();
             }
         }
         

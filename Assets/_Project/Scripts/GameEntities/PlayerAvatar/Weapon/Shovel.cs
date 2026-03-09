@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
 
-namespace _Project.Scripts.GameEntities.Weapon.Player
+namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
 {
     public class Shovel : NetworkBehaviour
     {

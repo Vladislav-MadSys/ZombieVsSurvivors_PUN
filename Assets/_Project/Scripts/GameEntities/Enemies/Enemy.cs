@@ -7,11 +7,11 @@ namespace _Project.Scripts.GameEntities.Enemies
     public class Enemy : NetworkBehaviour
     {
 
+        
         private RoomSessionData _roomData;
     
         [Networked]
         public PlayerRef Target { get; set; }
-    
         public void Initialize(RoomSessionData roomData)
         {
             _roomData = roomData;
@@ -59,9 +59,16 @@ namespace _Project.Scripts.GameEntities.Enemies
 
         public Transform GetTarget()
         {
-            if (Target != PlayerRef.None && _roomData.PlayerInstances.Count > 0 && _roomData.PlayerInstances.ContainsKey(Target))
+            if (Target != PlayerRef.None && _roomData.IsRoomActive && _roomData.PlayerInstances.ContainsKey(Target))
             {
-                return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
+                if (_roomData.PlayerInstances[Target] != null && _roomData.PlayerInstances[Target].PlayerAvatar != null)
+                {
+                    return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {

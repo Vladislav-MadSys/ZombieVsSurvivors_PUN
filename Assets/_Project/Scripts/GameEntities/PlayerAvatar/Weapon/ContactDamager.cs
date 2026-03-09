@@ -1,7 +1,7 @@
 using _Project.Scripts.GameEntities.Enemies;
 using UnityEngine;
 
-namespace _Project.Scripts.GameEntities.Weapon.Player
+namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
 {
     public class ContactDamager : MonoBehaviour
     {
@@ -11,7 +11,7 @@ namespace _Project.Scripts.GameEntities.Weapon.Player
         {
             if (other.TryGetComponent(out EnemyHP enemyHp))
             {
-                enemyHp.GetDamage(Damage);
+                enemyHp.RPC_GetDamage(Damage);
             }
         }
     }

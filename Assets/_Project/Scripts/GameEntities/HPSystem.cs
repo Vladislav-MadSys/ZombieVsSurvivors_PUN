@@ -10,7 +10,7 @@ namespace _Project.Scripts.GameEntities
         [Networked]
         protected float CurrentHp {get; set; }
     
-        private bool _isSpawned = false;
+        protected bool _isSpawned = false;
     
         public override void Spawned()
         {
@@ -19,7 +19,8 @@ namespace _Project.Scripts.GameEntities
             _isSpawned = true;
         }
     
-        public virtual void GetDamage(float damage)
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public virtual void RPC_GetDamage(float damage)
         {
             if(!_isSpawned) return;
         
@@ -33,8 +34,11 @@ namespace _Project.Scripts.GameEntities
 
         public virtual void Kill()
         {
-            if(TryGetComponent(out NetworkObject networkObject))
+            if (TryGetComponent(out NetworkObject networkObject))
+            {
+                _isSpawned = false;
                 Runner.Despawn(networkObject);
+            }
         }
     }
 }

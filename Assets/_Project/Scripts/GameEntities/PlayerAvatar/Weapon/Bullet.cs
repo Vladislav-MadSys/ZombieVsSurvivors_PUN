@@ -1,9 +1,8 @@
-using System;
 using _Project.Scripts.GameEntities.Enemies;
 using Fusion;
 using UnityEngine;
 
-namespace _Project.Scripts.GameEntities.Weapon.Player
+namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Bullet : NetworkBehaviour
@@ -37,7 +36,7 @@ namespace _Project.Scripts.GameEntities.Weapon.Player
         {
             if (other.TryGetComponent<EnemyHP>(out EnemyHP enemyHp))
             {
-                enemyHp.GetDamage(Damage);
+                enemyHp.RPC_GetDamage(Damage);
                 Runner.Despawn(GetComponent<NetworkObject>());
             }
         }
