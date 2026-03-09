@@ -20,6 +20,7 @@ public class PlayerAvatarLevelController : NetworkBehaviour
     public void AddExp(int amount)
     {
         CurrentExp += amount;
+        Debug.Log($"{CurrentExp} / {ExpToNextLevel}");
         if (CurrentExp >= ExpToNextLevel)
         {
             LevelUp();

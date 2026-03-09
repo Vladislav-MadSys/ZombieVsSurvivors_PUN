@@ -9,7 +9,8 @@ public class ExpItem : NetworkBehaviour, IPickable
 
     [Networked] private bool IsUsed { get; set; } = false;
 
-    public void PickUp(PlayerAvatar picker)
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_PickUp(PlayerAvatar picker)
     {
         if (IsUsed) return;
         
