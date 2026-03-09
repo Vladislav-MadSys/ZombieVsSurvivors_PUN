@@ -9,6 +9,7 @@ namespace _Project.Scripts.UI.Gameplay
     {
         public event Action<Vector2> OnPlayerPositionChanged;
         public event Action<float, float> OnPlayerHpChanged;
+        public event Action<float, float> OnPlayerExpChanged;
         
         private PlayerAvatarStates _avatarStates;
 
@@ -21,12 +22,14 @@ namespace _Project.Scripts.UI.Gameplay
         {
             _avatarStates.OnPlayerPositionChanged += ChangePlayerPosition;
             _avatarStates.OnPlayerHpChanged += ChangePlayerHp;
+            _avatarStates.OnPlayerExpChanged += ChangePlayerExp;
         }
 
         public void Dispose()
         {
             _avatarStates.OnPlayerPositionChanged -= ChangePlayerPosition;
             _avatarStates.OnPlayerHpChanged -= ChangePlayerHp;
+            _avatarStates.OnPlayerExpChanged -= ChangePlayerExp;
         }
 
         private void ChangePlayerPosition(Vector2 newPosition)
@@ -37,6 +40,11 @@ namespace _Project.Scripts.UI.Gameplay
         private void ChangePlayerHp(float currentHp, float maxHp)
         {
             OnPlayerHpChanged?.Invoke(currentHp, maxHp);
+        }
+        
+        private void ChangePlayerExp(float currentHp, float maxHp)
+        {
+            OnPlayerExpChanged?.Invoke(currentHp, maxHp);
         }
     }
 }

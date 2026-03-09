@@ -36,6 +36,16 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
                 _states.ChangePlayerHp(CurrentHp, MaxHp);
             }
         }
+        
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public override void RPC_AddHP(float amount)
+        {
+            base.RPC_AddHP(amount);
+            if (_states != null)
+            {
+                _states.ChangePlayerHp(CurrentHp, MaxHp);
+            }
+        }
 
         public override void Kill()
         {

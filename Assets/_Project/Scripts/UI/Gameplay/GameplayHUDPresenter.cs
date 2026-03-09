@@ -16,17 +16,25 @@ namespace _Project.Scripts.UI.Gameplay
         public void Run()
         {
             _model.OnPlayerHpChanged += OnPlayerHPChanged;
+            _model.OnPlayerExpChanged += OnPlayerExpChanged;
         }
 
         public void Dispose()
         {
             _model.OnPlayerHpChanged -= OnPlayerHPChanged;
+            _model.OnPlayerExpChanged -= OnPlayerExpChanged;
         }
 
-        private void OnPlayerHPChanged(float currentHP, float maxHP)
+        private void OnPlayerHPChanged(float currentHp, float maxHp)
         {
-            float percentage = currentHP / maxHP;
+            float percentage = currentHp / maxHp;
             _view.ChangeHpBar(percentage);
+        }
+        
+        private void OnPlayerExpChanged(float avatarCurrentExp, float expToNextLevel)
+        {
+            float percentage = avatarCurrentExp / expToNextLevel;
+            _view.ChangeExpBar(percentage);
         }
     }
 }

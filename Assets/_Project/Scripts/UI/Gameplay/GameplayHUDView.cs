@@ -6,6 +6,7 @@ namespace _Project.Scripts.UI.Gameplay
     public class GameplayHUDView : MonoBehaviour
     {
         [SerializeField] private Image HpBar;
+        [SerializeField] private Image ExpBar;
         
         private GameplayHUDPresenter _presenter;
         
@@ -17,6 +18,11 @@ namespace _Project.Scripts.UI.Gameplay
         public void ChangeHpBar(float percentage)
         {
             HpBar.fillAmount = percentage;
+        }
+        
+        public void ChangeExpBar(float percentage)
+        {
+            ExpBar.fillAmount = percentage;
         }
     }
 }
