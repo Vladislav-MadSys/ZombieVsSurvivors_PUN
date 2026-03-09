@@ -31,6 +31,12 @@ namespace _Project.Scripts.GameEntities
                 Kill();    
             }
         }
+        
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public virtual void RPC_AddHP(float amount)
+        {
+            CurrentHp = Mathf.Clamp(CurrentHp + amount, 0, MaxHp);
+        }
 
         public virtual void Kill()
         {

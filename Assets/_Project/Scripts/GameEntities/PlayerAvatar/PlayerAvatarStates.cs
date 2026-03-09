@@ -1,12 +1,14 @@
 using System;
-using Fusion;
 using UnityEngine;
 
-public class PlayerAvatarStates
+namespace _Project.Scripts.GameEntities.PlayerAvatar
 {
-    public event Action<Vector2> OnPlayerPositionChanged;
-    public event Action<float, float> OnPlayerHpChanged;
+    public class PlayerAvatarStates
+    {
+        public event Action<Vector2> OnPlayerPositionChanged;
+        public event Action<float, float> OnPlayerHpChanged;
     
-    public void ChangePlayerPosition(Vector3 newPosition) => OnPlayerPositionChanged?.Invoke(newPosition);
-    public void ChangePlayerHp(float avatarCurrentHp, float avatarMaxHp) => OnPlayerHpChanged?.Invoke(avatarCurrentHp, avatarMaxHp);
+        public void ChangePlayerPosition(Vector3 newPosition) => OnPlayerPositionChanged?.Invoke(newPosition);
+        public void ChangePlayerHp(float avatarCurrentHp, float avatarMaxHp) => OnPlayerHpChanged?.Invoke(avatarCurrentHp, avatarMaxHp);
+    }
 }

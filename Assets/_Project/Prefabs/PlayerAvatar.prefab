@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 98976009930595730}
   - component: {fileID: 4527707106594229324}
   - component: {fileID: 1071934246607068416}
+  - component: {fileID: 4946721057760233873}
   m_Layer: 0
   m_Name: PlayerAvatar
   m_TagString: Untagged
@@ -68,6 +69,7 @@ MonoBehaviour:
   - {fileID: 2683283499363501338}
   - {fileID: 98976009930595730}
   - {fileID: 4527707106594229324}
+  - {fileID: 4946721057760233873}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &9062896114933609129
 MonoBehaviour:
@@ -82,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAvatarHp: {fileID: 4527707106594229324}
+  playerAvatarLevelController: {fileID: 4946721057760233873}
   playerAvatarMovementController: {fileID: 1512784174304474769}
 --- !u!114 &1512784174304474769
 MonoBehaviour:
@@ -214,6 +217,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.69, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4946721057760233873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597395629679072033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1749653cd8cf98f408578c4de21f0689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExpToNextLevel: 100
 --- !u!1 &1643734522135061242
 GameObject:
   m_ObjectHideFlags: 0

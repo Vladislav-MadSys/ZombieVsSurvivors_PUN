@@ -7,6 +7,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
     public class PlayerAvatar : NetworkBehaviour
     {
         [SerializeField] private PlayerAvatarHP playerAvatarHp;
+        [SerializeField] private PlayerAvatarLevelController playerAvatarLevelController;
         [SerializeField] private PlayerAvatarMovementController playerAvatarMovementController;
 
         private PlayerInstance _playerInstance;
@@ -21,11 +22,22 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             _playerInstance = playerInstance;
             _inputHandler = inputHandler;
         
-            playerAvatarMovementController.Initialize(_inputHandler);
-            playerAvatarHp.Initialize(_playerInstance);
             States = new PlayerAvatarStates();
+            playerAvatarMovementController.Initialize(_inputHandler);
+            playerAvatarHp.Initialize(playerInstance, States);
+            playerAvatarLevelController.Initialize(States);
             
             IsInitialized = true;
+        }
+
+        public void AddExp(int amount)
+        {
+            playerAvatarLevelController.AddExp(amount);
+        }
+
+        public void AddHp(float amount)
+        {
+            playerAvatarHp.RPC_AddHP(amount);
         }
     }
 }

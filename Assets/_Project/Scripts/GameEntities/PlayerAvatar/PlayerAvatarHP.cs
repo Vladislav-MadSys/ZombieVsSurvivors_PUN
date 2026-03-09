@@ -8,16 +8,12 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
     public class PlayerAvatarHP : HPSystem
     {
         [Networked] private PlayerInstance PlayerInstance { get; set; }
-        private PlayerAvatar _playerAvatar;
+        private PlayerAvatarStates _states;
         
-        public void Initialize(PlayerInstance playerInstance)
+        public void Initialize(PlayerInstance playerInstance, PlayerAvatarStates states)
         {
             PlayerInstance = playerInstance;
-        }
-
-        private void Start()
-        {
-            _playerAvatar = PlayerInstance.PlayerAvatar.GetComponent<PlayerAvatar>();
+            _states = states;
         }
 
         private void Update()
@@ -35,9 +31,9 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             if(!_isSpawned) return;
             
             base.RPC_GetDamage(damage);
-            if (_playerAvatar.States != null)
+            if (_states != null)
             {
-                _playerAvatar.States.ChangePlayerHp(CurrentHp, MaxHp);
+                _states.ChangePlayerHp(CurrentHp, MaxHp);
             }
         }
 
