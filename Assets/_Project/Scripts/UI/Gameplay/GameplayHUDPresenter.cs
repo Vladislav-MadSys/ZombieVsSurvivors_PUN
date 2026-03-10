@@ -51,6 +51,7 @@ namespace _Project.Scripts.UI.Gameplay
         {
             if(_upgradeManager == null) return;
 
+            _view.HideUpgradePanel();
             switch (key)
             {
                 case PlayerUpgradesKeys.DAMAGE_UPGRADE_KEY:
@@ -66,8 +67,6 @@ namespace _Project.Scripts.UI.Gameplay
                     _upgradeManager.UpgradeSpeed();
                     break;
             }
-            
-            _view.HideUpgradePanel();
         }
     }
 }

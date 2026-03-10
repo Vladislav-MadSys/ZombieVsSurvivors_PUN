@@ -14,12 +14,19 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
         [SerializeField] private float shootInterval = 1;
         [SerializeField] private float aimRadius = 10;
 
-        [Networked] private float _timer { get; set; }
+        [Networked] private float timer { get; set; }
+        [Networked] private int shootedBullets { get; set; }
         private Transform _transform;
+        private PlayerAvatarStates _states;
 
         private void Awake()
         {
             _transform = transform;
+        }
+
+        public void Initialize(PlayerAvatarStates states)
+        {
+            _states = states;
         }
 
         public void UpgradeFireRate()
@@ -34,18 +41,18 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
         
         public override void FixedUpdateNetwork()
         {
-            if (_timer > shootInterval)
+            if (timer > shootInterval)
             {
                 Vector2 target = FindTarget();
                 if (target != Vector2.zero)
                 {
                     Shoot(target);
-                    _timer = 0;
+                    timer = 0;
                 }
             }
             else
             {
-                _timer += Time.fixedDeltaTime;
+                timer += Time.fixedDeltaTime;
             }
         }
 
@@ -95,6 +102,8 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             bullet.transform.parent = null;
             bulletScript.Init(target, damage);
+            shootedBullets++;
+            _states.PlayerShoot(shootedBullets);
         }
     }
 }

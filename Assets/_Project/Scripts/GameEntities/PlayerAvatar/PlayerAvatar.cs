@@ -1,3 +1,5 @@
+using System;
+using _Project.Scripts.GameEntities.PlayerAvatar.Weapon;
 using _Project.Scripts.Low.Input;
 using Fusion;
 using UnityEngine;
@@ -10,6 +12,8 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
         [SerializeField] private PlayerAvatarUpgradeManager playerAvatarUpgradeManager;
         [SerializeField] private PlayerAvatarLevelController playerAvatarLevelController;
         [SerializeField] private PlayerAvatarMovementController playerAvatarMovementController;
+
+        [SerializeField] private MachineGun machineGun;
 
         private PlayerInstance _playerInstance;
         private InputHandler _inputHandler;
@@ -24,10 +28,11 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             _inputHandler = inputHandler;
         
             States = new PlayerAvatarStates();
-            playerAvatarMovementController.Initialize(_inputHandler);
+            playerAvatarMovementController.Initialize(_inputHandler, States);
             playerAvatarHp.Initialize(playerInstance, States);
             playerAvatarLevelController.Initialize(States);
             playerAvatarUpgradeManager.Initialize(States);
+            machineGun.Initialize(States);
             
             IsInitialized = true;
         }

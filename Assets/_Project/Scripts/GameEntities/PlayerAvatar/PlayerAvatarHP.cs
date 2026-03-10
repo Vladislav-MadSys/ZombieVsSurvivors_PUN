@@ -61,6 +61,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             
             float delta = MaxHp * HP_UPGRADE_COEFFICIENT - MaxHp;
             MaxHp *= HP_UPGRADE_COEFFICIENT;
+            RPC_AddHP(delta);
             if (_states != null)
             {
                 _states.ChangePlayerHp(CurrentHp, MaxHp);

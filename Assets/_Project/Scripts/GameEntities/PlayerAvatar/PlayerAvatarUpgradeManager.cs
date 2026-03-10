@@ -35,20 +35,24 @@ public class PlayerAvatarUpgradeManager : NetworkBehaviour
     public void UpgradeFireRate()
     {
         machineGun.UpgradeFireRate();
+        _states.PlayerUpgraded();
     }
 
     public void UpgradeDamage()
     {
         machineGun.UpgradeDamage();
+        _states.PlayerUpgraded();
     }
 
     public void UpgradeHp()
     {
         playerAvatarHp.RPC_UpgradeMaxHp();
+        _states.PlayerUpgraded();
     }
     
     public void UpgradeSpeed()
     {
         playerAvatarMovementController.UpgradeSpeed();
+        _states.PlayerUpgraded();
     }
 }

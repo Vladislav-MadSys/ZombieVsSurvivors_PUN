@@ -91,6 +91,7 @@ MonoBehaviour:
   playerAvatarUpgradeManager: {fileID: 450551729449243772}
   playerAvatarLevelController: {fileID: 4946721057760233873}
   playerAvatarMovementController: {fileID: 1512784174304474769}
+  machineGun: {fileID: 625282713792748192}
 --- !u!114 &1512784174304474769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1749653cd8cf98f408578c4de21f0689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExpToNextLevel: 100
+  expToNextLevel: 100
+  upgradeManager: {fileID: 450551729449243772}
 --- !u!114 &2452889464744557846
 MonoBehaviour:
   m_ObjectHideFlags: 0
