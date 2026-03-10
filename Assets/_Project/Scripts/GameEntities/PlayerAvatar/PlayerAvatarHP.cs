@@ -52,6 +52,10 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
         public void RPC_UpgradeMaxHp()
         {
             MaxHp *= HP_UPGRADE_COEFFICIENT;
+            if (_states != null)
+            {
+                _states.ChangePlayerHp(CurrentHp, MaxHp);
+            }
         }
         
         public override void Kill()
