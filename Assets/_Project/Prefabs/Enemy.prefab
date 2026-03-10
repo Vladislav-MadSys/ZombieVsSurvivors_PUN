@@ -52,6 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d2d5b11103af9446817a7b8d9abb7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loot:
+  - {fileID: 1608089368770391727, guid: 365500952fd6cf54891593fcb8795a39, type: 3}
+  - {fileID: 6394508423527250658, guid: ea073bfb572f3c04387f8a2b251fa574, type: 3}
+  dropChance: 50
 --- !u!114 &3875621465001063380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MaxHp: 100
+  enemy: {fileID: 8335510191624038721}
 --- !u!114 &3601446940822077491
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,13 +1,19 @@
+using System;
+using _Project.Scripts.GameEntities.PlayerAvatar;
 using _Project.Scripts.Session;
 using Fusion;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.GameEntities.Enemies
 {
     public class Enemy : NetworkBehaviour
     {
+        public event Action OnEnemyDead;
 
-        
+        [SerializeField] private NetworkObject[] loot;
+        [SerializeField] private float dropChance = 50;
+
         private RoomSessionData _roomData;
     
         [Networked]
@@ -19,7 +25,38 @@ namespace _Project.Scripts.GameEntities.Enemies
             UpdateTarget();
         }
 
-        public void UpdateTarget()
+        public Transform GetTarget()
+        {
+            if (Target != PlayerRef.None && _roomData.IsRoomActive && _roomData.PlayerInstances.ContainsKey(Target))
+            {
+                if (_roomData.PlayerInstances[Target] != null && _roomData.PlayerInstances[Target].PlayerAvatar != null)
+                {
+                    return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                UpdateTarget();
+                return null;
+            }
+        }
+
+        public void Kill()
+        {
+            OnEnemyDead?.Invoke();
+            if (Random.Range(0f, 1f) <= dropChance / 100)
+            {
+                NetworkObject lootToSpawn = loot[Random.Range(0, loot.Length)];
+                NetworkObject spawnedLoot = Runner.Spawn(lootToSpawn, transform.position, transform.rotation);
+                spawnedLoot.transform.parent = null;
+            }
+        }
+        
+        private void UpdateTarget()
         {
             if (_roomData == null)
             {
@@ -55,26 +92,6 @@ namespace _Project.Scripts.GameEntities.Enemies
             }
         
             Target = closestPlayer;
-        }
-
-        public Transform GetTarget()
-        {
-            if (Target != PlayerRef.None && _roomData.IsRoomActive && _roomData.PlayerInstances.ContainsKey(Target))
-            {
-                if (_roomData.PlayerInstances[Target] != null && _roomData.PlayerInstances[Target].PlayerAvatar != null)
-                {
-                    return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                UpdateTarget();
-                return null;
-            }
         }
     }
 }

@@ -23,15 +23,7 @@ namespace _Project.Scripts.GameEntities.Enemies
         {
             if (_target == null)
             {
-                if (_enemy.Target == default)
-                {
-                    _enemy.UpdateTarget();
-                    _target = _enemy.GetTarget();
-                }
-                else
-                {
-                    _target = _enemy.GetTarget();
-                }
+                _target = _enemy.GetTarget();
             }
 
             if (_target != null)
