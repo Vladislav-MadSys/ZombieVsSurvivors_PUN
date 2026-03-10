@@ -20,7 +20,7 @@ namespace _Project.Scripts.GameEntities
         [Rpc(RpcSources.All, RpcTargets.All)]
         public virtual void RPC_GetDamage(float damage)
         {
-            if(!_isSpawned) return;
+            if(!_isSpawned && Runner.LocalPlayer != Object.InputAuthority) return;
         
             CurrentHp = Mathf.Clamp(CurrentHp - damage, 0, MaxHp);
 
@@ -33,16 +33,15 @@ namespace _Project.Scripts.GameEntities
         [Rpc(RpcSources.All, RpcTargets.All)]
         public virtual void RPC_AddHP(float amount)
         {
+            if(!_isSpawned && Runner.LocalPlayer != Object.InputAuthority) return;
+            
             CurrentHp = Mathf.Clamp(CurrentHp + amount, 0, MaxHp);
         }
 
         public virtual void Kill()
         {
-            if (TryGetComponent(out NetworkObject networkObject))
-            {
-                _isSpawned = false;
-                Runner.Despawn(networkObject);
-            }
+            _isSpawned = false;
+            Runner.Despawn(GetComponent<NetworkObject>());
         }
     }
 }

@@ -38,11 +38,8 @@ namespace _Project.Scripts
         }
 
         public void AvatarKilled()
-        {
-            if (Runner.IsSharedModeMasterClient)
-            {
-                RPC_Disconnect(Owner);
-            }
+        { 
+            RPC_Disconnect(Owner);
         }
 
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]

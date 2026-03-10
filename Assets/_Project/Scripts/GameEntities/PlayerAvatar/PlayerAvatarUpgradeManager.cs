@@ -21,7 +21,10 @@ public class PlayerAvatarUpgradeManager : NetworkBehaviour
 
     public void OnDestroy()
     {
-        _states.OnPlayerLevelUp -= StartUpgrade;
+        if (_states != null)
+        {
+            _states.OnPlayerLevelUp -= StartUpgrade;
+        }
     }
     
     public void StartUpgrade()

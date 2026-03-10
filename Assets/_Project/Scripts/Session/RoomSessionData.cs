@@ -12,7 +12,7 @@ namespace _Project.Scripts.Session
         
         [Networked]
         public NetworkDictionary<PlayerRef, PlayerInstance> PlayerInstances { get; } = new NetworkDictionary<PlayerRef, PlayerInstance>();
-        public bool IsRoomActive { get; private set; } = false;
+        [Networked] public bool IsRoomActive { get; private set; } = false;
 
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]

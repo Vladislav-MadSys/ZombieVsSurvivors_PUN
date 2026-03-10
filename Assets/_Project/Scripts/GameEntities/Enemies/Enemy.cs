@@ -14,7 +14,8 @@ namespace _Project.Scripts.GameEntities.Enemies
         [SerializeField] private NetworkObject[] loot;
         [SerializeField] private float dropChance = 50;
 
-        private RoomSessionData _roomData;
+        [Networked]
+        private RoomSessionData _roomData { get; set; }
     
         [Networked]
         public PlayerRef Target { get; set; }
@@ -27,7 +28,7 @@ namespace _Project.Scripts.GameEntities.Enemies
 
         public Transform GetTarget()
         {
-            if (Target != PlayerRef.None && _roomData.IsRoomActive && _roomData.PlayerInstances.ContainsKey(Target))
+            if (Target != PlayerRef.None && (_roomData != null && _roomData.IsRoomActive && _roomData.PlayerInstances.ContainsKey(Target)))
             {
                 if (_roomData.PlayerInstances[Target] != null && _roomData.PlayerInstances[Target].PlayerAvatar != null)
                 {
@@ -75,7 +76,7 @@ namespace _Project.Scripts.GameEntities.Enemies
                         closestPlayer = keyValuePair.Value.Owner;
                     }
                 }
-                else if(_roomData.PlayerInstances[closestPlayer].PlayerAvatar != null)
+                else if(_roomData.PlayerInstances[closestPlayer] != null && _roomData.PlayerInstances[closestPlayer].PlayerAvatar != null)
                 {
                     Vector3 myPosition = transform.position;
                     Vector3 avatar1 = _roomData.PlayerInstances[closestPlayer].PlayerAvatar.transform.position;

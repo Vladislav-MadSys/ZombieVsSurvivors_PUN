@@ -65,7 +65,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             PlayerInstance farestPlayer = null;
             foreach (var keyValuePair in _roomSessionData.PlayerInstances)
             {
-                if (_roomSessionData.PlayerInstances[keyValuePair.Key].PlayerAvatar != null)
+                if (_roomSessionData.PlayerInstances[keyValuePair.Key] != null && _roomSessionData.PlayerInstances[keyValuePair.Key].PlayerAvatar != null)
                 {
                     if (farestPlayer != null)
                     {
