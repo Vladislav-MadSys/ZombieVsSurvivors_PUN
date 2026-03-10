@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb6f428c27397c4abaae78ee4391539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 100
+  _MaxHp: 100
 --- !u!114 &3601446940822077491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 5
-  AttackRadius: 2
+  AttackRadius: 1
   AttackInterval: 1
 --- !u!1 &9189482476301792653
 GameObject:

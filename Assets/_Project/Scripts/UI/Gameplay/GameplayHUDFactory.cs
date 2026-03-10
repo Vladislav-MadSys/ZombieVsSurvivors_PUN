@@ -24,9 +24,10 @@ namespace _Project.Scripts.UI.Gameplay
             await UniTask.WaitUntil(() => PlayerAvatar.IsInitialized);
             _model = new GameplayHUDModel(PlayerAvatar.States);
             _presenter = new GameplayHUDPresenter(_model, View);
+            View.Initialize(_presenter);
             _model.Run();
             _presenter.Run();
-            View.Initialize(_presenter);
+            View.Run();
             Debug.Log("Gameplay HUD initialized");
         }
 

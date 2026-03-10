@@ -6,9 +6,13 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
 {
     public class MachineGun : NetworkBehaviour
     {
-        [SerializeField] private GameObject BulletPrefab;
-        [SerializeField] private float ShootInterval = 1;
-        [SerializeField] private float AimRadius = 10;
+        private const float FIRE_RATE_UPGRADE_COEFFICIENT = 1.3f;
+        private const float DAMAGE_UPGRADE_COEFFICIENT = 1.3f;
+        
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private float damage = 50;
+        [SerializeField] private float shootInterval = 1;
+        [SerializeField] private float aimRadius = 10;
 
         [Networked] private float _timer { get; set; }
         private Transform _transform;
@@ -18,9 +22,19 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
             _transform = transform;
         }
 
+        public void UpgradeFireRate()
+        {
+            shootInterval /= FIRE_RATE_UPGRADE_COEFFICIENT;
+        }
+        
+        public void UpgradeDamage()
+        {
+            damage *= DAMAGE_UPGRADE_COEFFICIENT;
+        }
+        
         public override void FixedUpdateNetwork()
         {
-            if (_timer > ShootInterval)
+            if (_timer > shootInterval)
             {
                 Vector2 target = FindTarget();
                 if (target != Vector2.zero)
@@ -38,7 +52,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
         private Vector2 FindTarget()
         {
             Collider2D[] colliders = new Collider2D[100];
-            Physics2D.OverlapCircleNonAlloc(transform.position, AimRadius, colliders);
+            Physics2D.OverlapCircleNonAlloc(transform.position, aimRadius, colliders);
         
             EnemyHP[] enemyHps =new EnemyHP[colliders.Length];
             for(int i = 0; i < colliders.Length; i++)
@@ -77,10 +91,10 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
 
         private void Shoot(Vector2 target)
         {
-            NetworkObject bullet = Runner.Spawn(BulletPrefab, _transform.position, _transform.rotation);
+            NetworkObject bullet = Runner.Spawn(bulletPrefab, _transform.position, _transform.rotation);
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             bullet.transform.parent = null;
-            bulletScript.Init(target);
+            bulletScript.Init(target, damage);
         }
     }
 }

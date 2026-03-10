@@ -7,6 +7,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerAvatarMovementController : NetworkBehaviour
     {
+        private const float SPEED_UPGRADE_COEFFICIENT = 1.3f;
         [SerializeField] private float Speed;
         
         private Rigidbody2D _rb;
@@ -22,6 +23,11 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             _inputHandler = inputHandler;
         }
 
+        public void UpgradeSpeed()
+        {
+            Speed *= SPEED_UPGRADE_COEFFICIENT;
+        }
+        
         public override void FixedUpdateNetwork()
         {
             if (_rb != null && _inputHandler != null)

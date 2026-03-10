@@ -5,10 +5,8 @@ namespace _Project.Scripts.GameEntities
 {
     public class HPSystem : NetworkBehaviour
     {
-        [SerializeField] protected float MaxHp = 100;
-    
-        [Networked]
-        protected float CurrentHp {get; set; }
+        [field: SerializeField][Networked] protected float MaxHp { get; set; } = 100;
+        [Networked] protected float CurrentHp {get; set; }
     
         protected bool _isSpawned = false;
     

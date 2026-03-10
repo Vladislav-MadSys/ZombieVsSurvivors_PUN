@@ -10,8 +10,11 @@ namespace _Project.Scripts.UI.Gameplay
         public event Action<Vector2> OnPlayerPositionChanged;
         public event Action<float, float> OnPlayerHpChanged;
         public event Action<float, float> OnPlayerExpChanged;
+        public event Action<PlayerAvatarUpgradeManager> OnPlayerLevelUpgrade;
         
         private PlayerAvatarStates _avatarStates;
+        
+        private PlayerAvatarUpgradeManager _playerAvatarUpgradeManager;
 
         public GameplayHUDModel(PlayerAvatarStates avatarStates)
         {
@@ -23,6 +26,7 @@ namespace _Project.Scripts.UI.Gameplay
             _avatarStates.OnPlayerPositionChanged += ChangePlayerPosition;
             _avatarStates.OnPlayerHpChanged += ChangePlayerHp;
             _avatarStates.OnPlayerExpChanged += ChangePlayerExp;
+            _avatarStates.OnPlayerUpgradeReady += PlayerUpgradeReady;
         }
 
         public void Dispose()
@@ -30,6 +34,7 @@ namespace _Project.Scripts.UI.Gameplay
             _avatarStates.OnPlayerPositionChanged -= ChangePlayerPosition;
             _avatarStates.OnPlayerHpChanged -= ChangePlayerHp;
             _avatarStates.OnPlayerExpChanged -= ChangePlayerExp;
+            _avatarStates.OnPlayerUpgradeReady -= PlayerUpgradeReady;
         }
 
         private void ChangePlayerPosition(Vector2 newPosition)
@@ -45,6 +50,13 @@ namespace _Project.Scripts.UI.Gameplay
         private void ChangePlayerExp(float currentHp, float maxHp)
         {
             OnPlayerExpChanged?.Invoke(currentHp, maxHp);
+        }
+
+        private void PlayerUpgradeReady(PlayerAvatarUpgradeManager upgradeManager)
+        {
+            Debug.Log("PlayerUpgradeReady");
+            _playerAvatarUpgradeManager = upgradeManager;
+            OnPlayerLevelUpgrade?.Invoke(_playerAvatarUpgradeManager);
         }
     }
 }

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1071934246607068416}
   - component: {fileID: 4946721057760233873}
   - component: {fileID: 2452889464744557846}
+  - component: {fileID: 450551729449243772}
   m_Layer: 0
   m_Name: PlayerAvatar
   m_TagString: Untagged
@@ -72,6 +73,7 @@ MonoBehaviour:
   - {fileID: 4527707106594229324}
   - {fileID: 4946721057760233873}
   - {fileID: 2452889464744557846}
+  - {fileID: 450551729449243772}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &9062896114933609129
 MonoBehaviour:
@@ -86,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAvatarHp: {fileID: 4527707106594229324}
+  playerAvatarUpgradeManager: {fileID: 450551729449243772}
   playerAvatarLevelController: {fileID: 4946721057760233873}
   playerAvatarMovementController: {fileID: 1512784174304474769}
 --- !u!114 &1512784174304474769
@@ -172,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ae36a227d9bf84f9b1d4ed56e8d349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 100
+  _MaxHp: 100
 --- !u!61 &1071934246607068416
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -244,6 +247,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343b88b3c8ba6ad4ba8dc8ac99975eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &450551729449243772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597395629679072033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f751890cf604742bfc88f8a3615a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineGun: {fileID: 625282713792748192}
+  playerAvatarHp: {fileID: 4527707106594229324}
+  playerAvatarMovementController: {fileID: 1512784174304474769}
 --- !u!1 &1643734522135061242
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5150573274148942487
 Transform:
   m_ObjectHideFlags: 0
@@ -375,9 +393,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0199f959bf01b204bb030cb83f2a4b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 2133848287806655519, guid: 474e2e2ca975dc24bb6605366e44fe4f, type: 3}
-  ShootInterval: 1
-  AimRadius: 10
+  bulletPrefab: {fileID: 2133848287806655519, guid: 474e2e2ca975dc24bb6605366e44fe4f, type: 3}
+  damage: 50
+  shootInterval: 1
+  aimRadius: 10
 --- !u!114 &6007025227791505543
 MonoBehaviour:
   m_ObjectHideFlags: 0

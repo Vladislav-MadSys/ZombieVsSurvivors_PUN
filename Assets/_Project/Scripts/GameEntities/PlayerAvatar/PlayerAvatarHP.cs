@@ -7,6 +7,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
 {
     public class PlayerAvatarHP : HPSystem
     {
+        private const float HP_UPGRADE_COEFFICIENT = 1.5f;
         [Networked] private PlayerInstance PlayerInstance { get; set; }
         private PlayerAvatarStates _states;
         
@@ -47,6 +48,12 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             }
         }
 
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void RPC_UpgradeMaxHp()
+        {
+            MaxHp *= HP_UPGRADE_COEFFICIENT;
+        }
+        
         public override void Kill()
         {
             base.Kill();

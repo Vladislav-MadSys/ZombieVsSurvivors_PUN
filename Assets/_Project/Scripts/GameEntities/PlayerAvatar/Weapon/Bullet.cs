@@ -19,11 +19,12 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
             _rb = GetComponent<Rigidbody2D>();
         }
     
-        public void Init(Vector2 target)
+        public void Init(Vector2 target, float damage = 50)
         {
             Vector2 direction = target - (Vector2)transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            Damage = damage;
         }
 
         public override void FixedUpdateNetwork()

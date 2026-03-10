@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAvatarLevelController : NetworkBehaviour
 {
-    private const float EXP_MULTIPLER = 1.5f;
+    private const float EXP_UPGRADE_COEFFICIENT = 1.5f;
 
     [SerializeField] private int ExpToNextLevel = 100;
 
@@ -30,7 +30,9 @@ public class PlayerAvatarLevelController : NetworkBehaviour
     private void LevelUp()
     {
         CurrentLevel++;
-        CurrentExp = CurrentLevel == ExpToNextLevel ? 0 : CurrentLevel - ExpToNextLevel;
-        ExpToNextLevel = (int)(ExpToNextLevel * EXP_MULTIPLER);
+        CurrentExp = CurrentExp == ExpToNextLevel ? 0 : CurrentExp - ExpToNextLevel;
+        ExpToNextLevel = (int)(ExpToNextLevel * EXP_UPGRADE_COEFFICIENT);
+        _states.ChangePlayerExp(CurrentExp, ExpToNextLevel);
+        _states.PlayerLevelUp();
     }
 }

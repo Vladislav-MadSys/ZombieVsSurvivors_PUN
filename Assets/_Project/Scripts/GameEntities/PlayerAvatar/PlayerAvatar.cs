@@ -7,6 +7,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
     public class PlayerAvatar : NetworkBehaviour
     {
         [SerializeField] private PlayerAvatarHP playerAvatarHp;
+        [SerializeField] private PlayerAvatarUpgradeManager playerAvatarUpgradeManager;
         [SerializeField] private PlayerAvatarLevelController playerAvatarLevelController;
         [SerializeField] private PlayerAvatarMovementController playerAvatarMovementController;
 
@@ -26,6 +27,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             playerAvatarMovementController.Initialize(_inputHandler);
             playerAvatarHp.Initialize(playerInstance, States);
             playerAvatarLevelController.Initialize(States);
+            playerAvatarUpgradeManager.Initialize(States);
             
             IsInitialized = true;
         }
