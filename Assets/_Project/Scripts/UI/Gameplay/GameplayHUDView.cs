@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using _Project.Scripts.GameEntities.PlayerAvatar;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -6,6 +9,7 @@ namespace _Project.Scripts.UI.Gameplay
 {
     public class GameplayHUDView : MonoBehaviour
     {
+        [SerializeField] private GameObject otherPlayerDataPrefab;
         [SerializeField] private Image HpBar;
         [SerializeField] private Image ExpBar;
 
@@ -15,6 +19,8 @@ namespace _Project.Scripts.UI.Gameplay
         [SerializeField] private Button UpgradeHPButton;
         [SerializeField] private Button UpgradeMovementSpeedButton;
         
+        private Dictionary<PlayerInstance, OtherPlayerData> _otherPlayersIndicators = new Dictionary<PlayerInstance, OtherPlayerData>();
+        
         private UnityAction _onUpgradeFireRate;
         private UnityAction _onUpgradeDamage;
         private UnityAction _onUpgradeHp;
@@ -22,10 +28,12 @@ namespace _Project.Scripts.UI.Gameplay
         
         
         private GameplayHUDPresenter _presenter;
+        private Camera _camera;
         
-        public void Initialize(GameplayHUDPresenter presenter)
+        public void Initialize(GameplayHUDPresenter presenter, Camera camera)
         {
-            _presenter = presenter;    
+            _presenter = presenter;  
+            _camera = camera;
         }
 
         public void Run()
@@ -73,6 +81,56 @@ namespace _Project.Scripts.UI.Gameplay
         public void HideUpgradePanel()
         {
             UpgradePanel.SetActive(false);
+        }
+
+        public void OtherPlayerJoined(PlayerInstance player)
+        {
+            if (player == null || _otherPlayersIndicators.ContainsKey(player)) return;
+            
+            GameObject otherPlayerIndicator = Instantiate(otherPlayerDataPrefab);
+            OtherPlayerData otherPlayerIndicatorScript = otherPlayerIndicator.GetComponent<OtherPlayerData>();
+            otherPlayerIndicator.transform.SetParent(transform);
+            _otherPlayersIndicators.Add(player, otherPlayerIndicatorScript);
+            
+            otherPlayerIndicatorScript.Initialize(player, _camera);
+        }
+
+        public void OtherPlayerLeft(PlayerInstance player)
+        {
+            Debug.Log("VIEW Player Left");
+            if (player != null && _otherPlayersIndicators.ContainsKey(player) )
+            {
+                if (_otherPlayersIndicators[player] != null)
+                {
+                    OtherPlayerData otherPlayerIndicatorScript = _otherPlayersIndicators[player];
+                    Destroy(otherPlayerIndicatorScript.gameObject);
+                }
+                _otherPlayersIndicators.Remove(player);
+            }
+            else
+            {
+                RemoveDestroyedKeys();
+            }
+        }
+
+        public void RemoveDestroyedKeys()
+        {
+            List<PlayerInstance> keysToDestroy = new List<PlayerInstance>();
+
+            foreach (PlayerInstance player in _otherPlayersIndicators.Keys)
+            {
+                if (player == null)
+                {
+                    keysToDestroy.Add(player);
+                }
+            }
+
+            foreach (PlayerInstance key in keysToDestroy)
+            {
+                OtherPlayerData otherPlayerIndicatorScript = _otherPlayersIndicators[key];
+                Destroy(otherPlayerIndicatorScript.gameObject);
+                _otherPlayersIndicators.Remove(key);
+            }
         }
     }
 }

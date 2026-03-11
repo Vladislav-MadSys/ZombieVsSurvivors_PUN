@@ -17,7 +17,7 @@ namespace _Project.Scripts
 
         [Networked] public PlayerRef Owner { get; private set; }
 
-        [Networked] public NetworkObject PlayerAvatar { get; private set; }
+        [Networked] public NetworkObject PlayerAvatarObject { get; private set; }
 
         public void Initialize(PlayerRef owner)
         {
@@ -32,21 +32,29 @@ namespace _Project.Scripts
             if (Object.HasInputAuthority)
             {
                 _inputHandler = ProjectContextInstaller.DiContainer.Resolve<InputHandler>();
-                PlayerAvatar = Runner.Spawn(playerAvatarPrefab, inputAuthority: Owner);
-                PlayerAvatar.GetComponent<PlayerAvatar>().Initialize(this, _inputHandler);
+                PlayerAvatarObject = Runner.Spawn(playerAvatarPrefab, inputAuthority: Owner);
+                PlayerAvatarObject.GetComponent<PlayerAvatar>().Initialize(this, _inputHandler);
             }
         }
 
         public void AvatarKilled()
-        { 
-            RPC_Disconnect(Owner);
+        {
+            if (Object.HasInputAuthority)
+            {
+                Disconnect(Owner);
+            }
         }
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-        private void RPC_Disconnect(PlayerRef playerRef)
+        private void Disconnect(PlayerRef playerRef)
         {
-            if (Runner.LocalPlayer == playerRef)
+            Debug.Log("DISCONNECT " + playerRef);
+            _roomSessionData = GameSceneContainer.Instance.RoomSessionData;
+            
+            if (Object.InputAuthority == playerRef)
             {
+                _roomSessionData.RPC_PlayerLeave(playerRef);
+                PlayerAvatarObject.gameObject.SetActive(false);
+                //await UniTask.WaitForSeconds(1);
                 Runner.Shutdown();
             }
         }
@@ -58,7 +66,8 @@ namespace _Project.Scripts
                 GameSceneContainer.Instance.RoomSessionData != null
             );
 
-            var roomData = GameSceneContainer.Instance.RoomSessionData;
+            _roomSessionData = GameSceneContainer.Instance.RoomSessionData;
+            var roomData = _roomSessionData;
             roomData.RPC_PlayerJoin(Owner, this);
         }
     }

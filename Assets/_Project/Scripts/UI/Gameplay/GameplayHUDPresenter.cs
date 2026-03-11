@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using _Project.Scripts.GameEntities.PlayerAvatar;
+using _Project.Scripts.Session;
+using Fusion;
 using UnityEngine;
 
 namespace _Project.Scripts.UI.Gameplay
@@ -6,17 +10,22 @@ namespace _Project.Scripts.UI.Gameplay
     {
         private GameplayHUDModel _model;
         private GameplayHUDView _view;
+        private RoomSessionData _roomSessionData;
 
         private PlayerAvatarUpgradeManager _upgradeManager;
         
-        public GameplayHUDPresenter(GameplayHUDModel model, GameplayHUDView view)
+        public GameplayHUDPresenter(GameplayHUDModel model, GameplayHUDView view, RoomSessionData  roomSessionData)
         {
             _model = model;
             _view = view;
+            _roomSessionData = roomSessionData;
         }
 
         public void Run()
         {
+            //_model.OnPlayerJoined += OnPlayerJoined;
+            _model.OnRecheckPlayers += RecheckAllPlayers;
+            _model.OnPlayerLeft   += OnPlayerLeft;
             _model.OnPlayerHpChanged += OnPlayerHPChanged;
             _model.OnPlayerExpChanged += OnPlayerExpChanged;
             _model.OnPlayerLevelUpgrade += OnPlayerLevelUpgrade;
@@ -24,11 +33,34 @@ namespace _Project.Scripts.UI.Gameplay
 
         public void Dispose()
         {
+            //_model.OnPlayerJoined -= OnPlayerJoined;
+            _model.OnRecheckPlayers -= RecheckAllPlayers;
+            _model.OnPlayerLeft   -= OnPlayerLeft;
             _model.OnPlayerHpChanged -= OnPlayerHPChanged;
             _model.OnPlayerExpChanged -= OnPlayerExpChanged;
             _model.OnPlayerLevelUpgrade -= OnPlayerLevelUpgrade;
         }
 
+        private void RecheckAllPlayers(List<PlayerInstance> players)
+        {
+            Debug.Log("RECHECK ALL PLAYERS! COUNT: " +  players.Count);
+            foreach (var player in players)
+            {
+                _view.OtherPlayerJoined(player);
+            }
+        }
+        
+        private void OnPlayerJoined(PlayerRef player)
+        {
+            _view.OtherPlayerJoined(_roomSessionData.PlayerInstances[player]);
+        }
+        
+        private void OnPlayerLeft(PlayerRef player)
+        {
+            Debug.Log("PRESENTER Player Left");
+            _view.OtherPlayerLeft(_roomSessionData.PlayerInstances[player]);
+        }
+        
         private void OnPlayerHPChanged(float currentHp, float maxHp)
         {
             float percentage = currentHp / maxHp;

@@ -26,9 +26,9 @@ public class OtherPlayerData : MonoBehaviour
     {
         _owner = playerInstance;
         _camera = camera;
-        if (playerInstance.PlayerAvatar != null)
+        if (playerInstance.PlayerAvatarObject != null)
         {
-            _target = playerInstance.PlayerAvatar.transform;
+            _target = playerInstance.PlayerAvatarObject.transform;
         }
         else
         {
@@ -38,7 +38,18 @@ public class OtherPlayerData : MonoBehaviour
 
     private void Update()
     {
-        _transform.position = _camera.WorldToScreenPoint(_target.position);
+        if (_target != null && _camera != null)
+        {
+            _transform.position = _camera.WorldToScreenPoint(_target.position);
+        }
+        else
+        {
+            Debug.Log("Target or Camera is null");
+            if (_owner == null)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void UpdateShoots(int shoots)

@@ -15,16 +15,16 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
 
         [SerializeField] private MachineGun machineGun;
 
-        private PlayerInstance _playerInstance;
         private InputHandler _inputHandler;
 
+        public PlayerInstance PlayerInstance { get; private set; }
         public bool IsInitialized { get; private set; } = false;
 
         public PlayerAvatarStates States { get; private set; }
     
         public void Initialize(PlayerInstance playerInstance, InputHandler inputHandler)
         {
-            _playerInstance = playerInstance;
+            PlayerInstance = playerInstance;
             _inputHandler = inputHandler;
         
             States = new PlayerAvatarStates();

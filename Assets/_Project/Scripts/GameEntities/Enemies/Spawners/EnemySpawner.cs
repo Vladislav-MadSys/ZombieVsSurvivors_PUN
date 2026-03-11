@@ -65,12 +65,12 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             PlayerInstance farestPlayer = null;
             foreach (var keyValuePair in _roomSessionData.PlayerInstances)
             {
-                if (_roomSessionData.PlayerInstances[keyValuePair.Key] != null && _roomSessionData.PlayerInstances[keyValuePair.Key].PlayerAvatar != null)
+                if (_roomSessionData.PlayerInstances[keyValuePair.Key] != null && _roomSessionData.PlayerInstances[keyValuePair.Key].PlayerAvatarObject != null)
                 {
                     if (farestPlayer != null)
                     {
-                        if (Vector3.SqrMagnitude(basicPoint - farestPlayer.PlayerAvatar.transform.position)
-                            > Vector3.SqrMagnitude(basicPoint - _roomSessionData.PlayerInstances[keyValuePair.Key].PlayerAvatar.transform.position))
+                        if (Vector3.SqrMagnitude(basicPoint - farestPlayer.PlayerAvatarObject.transform.position)
+                            > Vector3.SqrMagnitude(basicPoint - _roomSessionData.PlayerInstances[keyValuePair.Key].PlayerAvatarObject.transform.position))
                         {
                             farestPlayer = _roomSessionData.PlayerInstances[keyValuePair.Key];
                         }
@@ -84,7 +84,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
 
             if (farestPlayer != null)
             {
-                return new Vector2(farestPlayer.PlayerAvatar.transform.position.x, farestPlayer.PlayerAvatar.transform.position.y);
+                return new Vector2(farestPlayer.PlayerAvatarObject.transform.position.x, farestPlayer.PlayerAvatarObject.transform.position.y);
             }
             else
             {

@@ -30,9 +30,9 @@ namespace _Project.Scripts.GameEntities.Enemies
         {
             if (Target != PlayerRef.None && (_roomData != null && _roomData.IsRoomActive && _roomData.PlayerInstances.ContainsKey(Target)))
             {
-                if (_roomData.PlayerInstances[Target] != null && _roomData.PlayerInstances[Target].PlayerAvatar != null)
+                if (_roomData.PlayerInstances[Target] != null && _roomData.PlayerInstances[Target].PlayerAvatarObject != null)
                 {
-                    return _roomData.PlayerInstances[Target].PlayerAvatar.transform;
+                    return _roomData.PlayerInstances[Target].PlayerAvatarObject.transform;
                 }
                 else
                 {
@@ -64,34 +64,24 @@ namespace _Project.Scripts.GameEntities.Enemies
                 Debug.LogError("_roomData == null");
                 return;
             }
-        
-            PlayerRef closestPlayer = default;
 
-            foreach (var keyValuePair in _roomData.PlayerInstances)
+            PlayerRef closestPlayer = PlayerRef.None;
+            float bestDistanceSqr = float.MaxValue;
+            Vector3 myPosition = transform.position;
+
+            foreach (var kvp in _roomData.PlayerInstances)
             {
-                if (closestPlayer == PlayerRef.None && _roomData.PlayerInstances.Count > 0)
-                {
-                    if (keyValuePair.Value.PlayerAvatar != null)
-                    {
-                        closestPlayer = keyValuePair.Value.Owner;
-                    }
-                }
-                else if(_roomData.PlayerInstances[closestPlayer] != null && _roomData.PlayerInstances[closestPlayer].PlayerAvatar != null)
-                {
-                    Vector3 myPosition = transform.position;
-                    Vector3 avatar1 = _roomData.PlayerInstances[closestPlayer].PlayerAvatar.transform.position;
-                    Vector3 avatar2 = keyValuePair.Value.PlayerAvatar.transform.position;
+                if (kvp.Value?.PlayerAvatarObject == null)
+                    continue;
 
-                    float distance1 = (myPosition - avatar1).sqrMagnitude;
-                    float distance2 = (myPosition - avatar2).sqrMagnitude;
-
-                    if (distance1 > distance2)
-                    {
-                        closestPlayer = keyValuePair.Value.Owner;
-                    }
+                float distSqr = (myPosition - kvp.Value.PlayerAvatarObject.transform.position).sqrMagnitude;
+                if (distSqr < bestDistanceSqr)
+                {
+                    bestDistanceSqr = distSqr;
+                    closestPlayer = kvp.Key;
                 }
             }
-        
+
             Target = closestPlayer;
         }
     }
