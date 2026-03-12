@@ -39,8 +39,10 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
             damage *= DAMAGE_UPGRADE_COEFFICIENT;
         }
         
-        public override void FixedUpdateNetwork()
+        public void FixedUpdate()
         {
+            if (!Object.HasInputAuthority) return;
+            
             if (timer > shootInterval)
             {
                 Vector2 target = FindTarget();
@@ -103,7 +105,13 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar.Weapon
             bullet.transform.parent = null;
             bulletScript.Init(target, damage);
             shootedBullets++;
-            _states.PlayerShoot(shootedBullets);
+            RpcCallOnShoot(shootedBullets);
+        }
+
+        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+        private void RpcCallOnShoot(int shootBulletsRpc)
+        {
+            _states.PlayerShoot(shootBulletsRpc);
         }
     }
 }

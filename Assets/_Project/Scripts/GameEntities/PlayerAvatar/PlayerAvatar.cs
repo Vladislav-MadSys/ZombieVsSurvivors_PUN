@@ -21,13 +21,29 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
         public bool IsInitialized { get; private set; } = false;
 
         public PlayerAvatarStates States { get; private set; }
-    
+
+        private void Awake()
+        {
+            States = new PlayerAvatarStates();
+        }
+
+        public override void Spawned()
+        {
+            if (!Object.HasInputAuthority)
+            {
+                playerAvatarMovementController.InitializeOnlyStates(States);
+                playerAvatarHp.Initialize(PlayerInstance, States);
+                playerAvatarLevelController.Initialize(States);
+                playerAvatarUpgradeManager.Initialize(States);
+                machineGun.Initialize(States);
+            }
+        }
+
         public void Initialize(PlayerInstance playerInstance, InputHandler inputHandler)
         {
             PlayerInstance = playerInstance;
             _inputHandler = inputHandler;
-        
-            States = new PlayerAvatarStates();
+
             playerAvatarMovementController.Initialize(_inputHandler, States);
             playerAvatarHp.Initialize(playerInstance, States);
             playerAvatarLevelController.Initialize(States);

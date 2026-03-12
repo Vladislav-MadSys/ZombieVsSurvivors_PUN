@@ -1,5 +1,6 @@
 using System;
 using _Project.Scripts;
+using _Project.Scripts.GameEntities.PlayerAvatar;
 using Fusion;
 using TMPro;
 using UnityEngine;
@@ -8,7 +9,9 @@ using UnityEngine.UI;
 public class OtherPlayerData : MonoBehaviour
 {
     private PlayerInstance _owner;
+    private PlayerAvatar _playerAvatar;
     private Transform _target;
+    
     
     [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI positionText;
@@ -28,12 +31,25 @@ public class OtherPlayerData : MonoBehaviour
         _camera = camera;
         if (playerInstance.PlayerAvatarObject != null)
         {
-            _target = playerInstance.PlayerAvatarObject.transform;
+            _playerAvatar = playerInstance.PlayerAvatarObject.GetComponent<PlayerAvatar>();
+            _target = _playerAvatar.transform;
+            
+            _playerAvatar.States.OnPlayerShoot += UpdateShoots;
+            _playerAvatar.States.OnPlayerPositionChanged += UpdatePosition;
+            _playerAvatar.States.OnPlayerHpChanged += UpdateHpBar;
+            Debug.Log("STATES FOR OTHER PLAYER READY " + _playerAvatar.States.GetHashCode());
         }
         else
         {
             Debug.Log("Player Avatar is null");
         }
+    }
+
+    private void OnDestroy()
+    {
+        _playerAvatar.States.OnPlayerShoot -= UpdateShoots;
+        _playerAvatar.States.OnPlayerPositionChanged -= UpdatePosition;
+        _playerAvatar.States.OnPlayerHpChanged -= UpdateHpBar;
     }
 
     private void Update()
@@ -57,9 +73,9 @@ public class OtherPlayerData : MonoBehaviour
         shootsText.text = "Shoots " + shoots;
     }
 
-    public void UpdatePosition(Vector3 position)
+    public void UpdatePosition(Vector2 position)
     {
-        positionText.text = "Position " + position;
+        positionText.text = position.ToString();
     }
 
     public void UpdateHpBar(float currentHp, float maxHp)

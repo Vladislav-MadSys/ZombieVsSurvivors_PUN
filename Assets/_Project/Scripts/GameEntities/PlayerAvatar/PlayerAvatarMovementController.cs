@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Low.Input;
 using Fusion;
 using UnityEngine;
@@ -27,22 +28,28 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             _states = states;
         }
 
+        public void InitializeOnlyStates(PlayerAvatarStates states)
+        {
+            _states = states;
+        }
+
         public void UpgradeSpeed()
         {
             Speed *= SPEED_UPGRADE_COEFFICIENT;
         }
-        
-        public override void FixedUpdateNetwork()
+
+        private void FixedUpdate()
         {
-            _states.PlayerMove(_transform.position);
+            _states.ChangePlayerPosition(_transform.position);
             if (_rb != null && _inputHandler != null)
             {
                 _rb.MovePosition(_rb.position + (_inputHandler.MoveInput * Speed * Time.fixedDeltaTime));
             }
             else
             {
-                Debug.LogError("No Rigidbody or Input Handler!");
+                Debug.Log("No Rigidbody or Input Handler!");
             }
         }
+
     }
 }

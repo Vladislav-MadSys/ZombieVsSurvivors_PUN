@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.UI.Gameplay
 {
-    public class GameplayHUDFactory : MonoBehaviour
+    public class GameplayHUDFactory : NetworkBehaviour
     {
         [SerializeField] private Camera camera;
         [SerializeField] private RoomSessionData _roomSessionData;
@@ -17,12 +17,13 @@ namespace _Project.Scripts.UI.Gameplay
         private GameplayHUDModel _model;
         private GameplayHUDPresenter _presenter;
         private int _previousInstanceCount = 0;
-        
+
         public async void Start()
         {
             if (!PlayerAvatar.HasInputAuthority)
             {
                 View.gameObject.SetActive(false);
+                return;
             }
             
             await UniTask.WaitUntil(() => PlayerAvatar.IsInitialized);
