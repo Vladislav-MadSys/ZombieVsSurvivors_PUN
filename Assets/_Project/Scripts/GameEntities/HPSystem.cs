@@ -37,7 +37,6 @@ namespace _Project.Scripts.GameEntities
             
             CurrentHp = Mathf.Clamp(CurrentHp + amount, 0, MaxHp);
         }
-
         public virtual void Kill()
         {
             _isSpawned = false;

@@ -36,10 +36,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
                 base.RPC_GetDamage(damage);
             }
 
-            if (_states != null)
-            {
-                _states.ChangePlayerHp(CurrentHp, MaxHp);
-            }
+            RPC_ChangeHp();
         }
         
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -48,10 +45,7 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             if(!_isSpawned && Runner.LocalPlayer != Object.InputAuthority) return;
             
             base.RPC_AddHP(amount);
-            if (_states != null)
-            {
-                _states.ChangePlayerHp(CurrentHp, MaxHp);
-            }
+            RPC_ChangeHp();
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -62,10 +56,13 @@ namespace _Project.Scripts.GameEntities.PlayerAvatar
             float delta = MaxHp * HP_UPGRADE_COEFFICIENT - MaxHp;
             MaxHp *= HP_UPGRADE_COEFFICIENT;
             RPC_AddHP(delta);
-            if (_states != null)
-            {
-                _states.ChangePlayerHp(CurrentHp, MaxHp);
-            }
+            RPC_ChangeHp();
+        }
+        
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        private void RPC_ChangeHp()
+        {
+            _states.ChangePlayerHp(CurrentHp, MaxHp);
         }
         
         public override void Kill()
