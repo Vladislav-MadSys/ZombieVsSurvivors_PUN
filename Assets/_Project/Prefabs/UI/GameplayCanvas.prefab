@@ -1042,6 +1042,7 @@ RectTransform:
   - {fileID: 4126796095796963933}
   - {fileID: 7920247580318218385}
   - {fileID: 6561983286046300729}
+  - {fileID: 1692503425290749024}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1124,6 +1125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5345283f18b3c74e8cc562511dd86dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  _roomSessionData: {fileID: 0}
   PlayerAvatar: {fileID: 0}
   View: {fileID: 8251022786632914324}
 --- !u!114 &8251022786632914324
@@ -1138,6 +1141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bd40d352e25914dbada4959b809ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherPlayerDataPrefab: {fileID: 0}
   HpBar: {fileID: 5189139271740969639}
   ExpBar: {fileID: 7785872346423353566}
   UpgradePanel: {fileID: 923308963750391366}
@@ -1719,3 +1723,65 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1001 &2016657988086471597
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7216326792714658738}
+    m_Modifications:
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -716
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -352
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.151546
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575413025725080548, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+      propertyPath: m_Name
+      value: Joystick
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+--- !u!4 &1692503425290749024 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 900826734881890253, guid: a4f14c34f67157d48b2934a37b8ca2ae, type: 3}
+  m_PrefabInstance: {fileID: 2016657988086471597}
+  m_PrefabAsset: {fileID: 0}
