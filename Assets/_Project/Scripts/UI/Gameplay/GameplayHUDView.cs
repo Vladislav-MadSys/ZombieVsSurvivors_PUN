@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Project.Scripts.GameEntities.PlayerAvatar;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,6 +19,8 @@ namespace _Project.Scripts.UI.Gameplay
         [SerializeField] private Button UpgradeDamageButton;
         [SerializeField] private Button UpgradeHPButton;
         [SerializeField] private Button UpgradeMovementSpeedButton;
+        
+        [SerializeField] private TextMeshProUGUI roomNameText;
         
         private Dictionary<PlayerInstance, OtherPlayerData> _otherPlayersIndicators = new Dictionary<PlayerInstance, OtherPlayerData>();
         
@@ -97,7 +100,6 @@ namespace _Project.Scripts.UI.Gameplay
 
         public void OtherPlayerLeft(PlayerInstance player)
         {
-            Debug.Log("VIEW Player Left");
             if (player != null && _otherPlayersIndicators.ContainsKey(player) )
             {
                 if (_otherPlayersIndicators[player] != null)
@@ -113,7 +115,12 @@ namespace _Project.Scripts.UI.Gameplay
             }
         }
 
-        public void RemoveDestroyedKeys()
+        public void SetRoomName(string roomName)
+        {
+            roomNameText.text = roomName;
+        }
+        
+        private void RemoveDestroyedKeys()
         {
             List<PlayerInstance> keysToDestroy = new List<PlayerInstance>();
 

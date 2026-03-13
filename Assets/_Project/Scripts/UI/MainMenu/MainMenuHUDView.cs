@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MainMenuHUDView : MonoBehaviour
 {
     [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private Button connectButton;
     [SerializeField] private Button createRoomButton;
 
     [SerializeField] private GameObject menuPanel;
@@ -15,6 +16,7 @@ public class MainMenuHUDView : MonoBehaviour
     private MainMenuHUDPresenter _presenter;
     
     private UnityAction _onConnectionButtonClick;
+    private UnityAction _onCreateButtonClick;
     private UnityAction<string> _onInputFieldChanged;
 
     public void Initialize(MainMenuHUDPresenter presenter)
@@ -29,10 +31,19 @@ public class MainMenuHUDView : MonoBehaviour
             _presenter.ClickConnectionToRoom();
             menuPanel.SetActive(false);
             loadingPanel.SetActive(true);
-            Debug.Log("Try Connect to Room");
         };
-        createRoomButton.onClick.AddListener(_onConnectionButtonClick);
+        connectButton.onClick.AddListener(_onConnectionButtonClick);
 
+        _onCreateButtonClick = () =>
+        {
+            string uniqueId = Guid.NewGuid().ToString();
+            _presenter.ChangingRoomName(uniqueId);
+            _presenter.ClickConnectionToRoom();
+            menuPanel.SetActive(false);
+            loadingPanel.SetActive(true);
+        };
+        createRoomButton.onClick.AddListener(_onCreateButtonClick);
+        
         _onInputFieldChanged = (string key) =>
         {
             _presenter.ChangingRoomName(key);
@@ -42,7 +53,7 @@ public class MainMenuHUDView : MonoBehaviour
 
     private void OnDestroy()
     {
-        createRoomButton.onClick.RemoveListener(_onConnectionButtonClick);
+        connectButton.onClick.RemoveListener(_onConnectionButtonClick);
         inputField.onValueChanged.RemoveListener(_onInputFieldChanged);
     }
 }

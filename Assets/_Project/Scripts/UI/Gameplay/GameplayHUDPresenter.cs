@@ -23,17 +23,17 @@ namespace _Project.Scripts.UI.Gameplay
 
         public void Run()
         {
-            //_model.OnPlayerJoined += OnPlayerJoined;
             _model.OnRecheckPlayers += RecheckAllPlayers;
             _model.OnPlayerLeft   += OnPlayerLeft;
             _model.OnPlayerHpChanged += OnPlayerHPChanged;
             _model.OnPlayerExpChanged += OnPlayerExpChanged;
             _model.OnPlayerLevelUpgrade += OnPlayerLevelUpgrade;
+            
+            _view.SetRoomName(_roomSessionData.RoomName);
         }
 
         public void Dispose()
         {
-            //_model.OnPlayerJoined -= OnPlayerJoined;
             _model.OnRecheckPlayers -= RecheckAllPlayers;
             _model.OnPlayerLeft   -= OnPlayerLeft;
             _model.OnPlayerHpChanged -= OnPlayerHPChanged;
@@ -43,7 +43,6 @@ namespace _Project.Scripts.UI.Gameplay
 
         private void RecheckAllPlayers(List<PlayerInstance> players)
         {
-            Debug.Log("RECHECK ALL PLAYERS! COUNT: " +  players.Count);
             foreach (var player in players)
             {
                 _view.OtherPlayerJoined(player);

@@ -24,6 +24,8 @@ namespace _Project.Scripts.UI.Gameplay
         private List<PlayerInstance> _otherPlayers = new List<PlayerInstance>();
         
         private PlayerAvatarUpgradeManager _playerAvatarUpgradeManager;
+        
+        public string RoomName = "";
 
         public GameplayHUDModel(RoomSessionData roomSessionData, PlayerInstance owner, PlayerAvatarStates avatarStates)
         {
@@ -41,6 +43,8 @@ namespace _Project.Scripts.UI.Gameplay
             _avatarStates.OnPlayerHpChanged += ChangePlayerHp;
             _avatarStates.OnPlayerExpChanged += ChangePlayerExp;
             _avatarStates.OnPlayerUpgradeReady += PlayerUpgradeReady;
+            
+            RoomName = _roomSessionData.RoomName;
         }
         
         public void Dispose()

@@ -7,11 +7,18 @@ namespace _Project.Scripts.Session
 {
     public class RoomSessionData : NetworkBehaviour
     {
+        
         public event Action<PlayerRef> OnPlayerJoined;
         public event Action<PlayerRef> OnPlayerLeft;
         
         [Networked] public NetworkDictionary<PlayerRef, PlayerInstance> PlayerInstances { get; } = new NetworkDictionary<PlayerRef, PlayerInstance>();
         [Networked] public bool IsRoomActive { get; private set; } = false;
+        [Networked] public string RoomName { get; private set; }
+
+        public override void Spawned()
+        {
+            RoomName = Runner.SessionInfo.Name;
+        }
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RPC_PlayerJoin(PlayerRef playerRef, PlayerInstance playerInstance)
@@ -22,8 +29,6 @@ namespace _Project.Scripts.Session
                 OnPlayerJoined?.Invoke(playerRef);
                 IsRoomActive = true;
             }
-
-            //RemoveDestroyedKeys();
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -35,28 +40,6 @@ namespace _Project.Scripts.Session
             {
                 IsRoomActive = false;
             }
-
-            //RemoveDestroyedKeys();
         }
-        
-        /*private void RemoveDestroyedKeys()
-        {
-            if(Object.StateAuthority != Runner.LocalPlayer) return;
-            
-            List<PlayerRef> keysToDestroy = new List<PlayerRef>();
-
-            foreach (var kvp in PlayerInstances)
-            {
-                if (kvp.Key == default)
-                {
-                    keysToDestroy.Add(kvp.Key);
-                }
-            }
-
-            foreach (var key in keysToDestroy)
-            {
-                PlayerInstances.Remove(key);
-            }
-        }*/
     }
 }
