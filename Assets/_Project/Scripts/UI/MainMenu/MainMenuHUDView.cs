@@ -36,7 +36,7 @@ public class MainMenuHUDView : MonoBehaviour
 
         _onCreateButtonClick = () =>
         {
-            string uniqueId = Guid.NewGuid().ToString();
+            string uniqueId = UniqRandomStringCreator.GetUniqString();
             _presenter.ChangingRoomName(uniqueId);
             _presenter.ClickConnectionToRoom();
             menuPanel.SetActive(false);
@@ -54,6 +54,7 @@ public class MainMenuHUDView : MonoBehaviour
     private void OnDestroy()
     {
         connectButton.onClick.RemoveListener(_onConnectionButtonClick);
+        createRoomButton.onClick.RemoveListener(_onCreateButtonClick);
         inputField.onValueChanged.RemoveListener(_onInputFieldChanged);
     }
 }

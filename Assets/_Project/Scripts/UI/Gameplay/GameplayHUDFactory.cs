@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.UI.Gameplay
 {
-    public class GameplayHUDFactory : NetworkBehaviour
+    public class GameplayHUDFactory : MonoBehaviour
     {
         [SerializeField] private Camera camera;
         [SerializeField] private RoomSessionData _roomSessionData;

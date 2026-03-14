@@ -22,15 +22,5 @@ namespace _Project.Scripts
                 runner.LoadScene(GAMEPLAY_SCENE_NAME);
             }
         }
-
-        public override void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
-        {
-            //SceneManager.LoadScene(MAIN_MENU_SCENE_NAME);
-        }
-
-        public override void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
-        {
-            //SceneManager.LoadScene(MAIN_MENU_SCENE_NAME);
-        }
     }
 }

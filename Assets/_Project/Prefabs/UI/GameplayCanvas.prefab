@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bd40d352e25914dbada4959b809ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayerDataPrefab: {fileID: 0}
+  otherPlayerDataPrefab: {fileID: 4395681669450429462, guid: 8b2ebe65e35c66e409178aa8590aef4a, type: 3}
   HpBar: {fileID: 5189139271740969639}
   ExpBar: {fileID: 7785872346423353566}
   UpgradePanel: {fileID: 923308963750391366}
